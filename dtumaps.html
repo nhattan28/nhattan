@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DTU Maps</title>
+  <link rel="stylesheet" href="dtumaps.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-map flex flex-col items-center justify-center p-4">
+  <div class="w-full max-w-md animate-fadeIn" role="region" aria-labelledby="app-title">
+    <h1 id="app-title" class="text-3xl font-extrabold text-center text-blue-800 mb-6 content-bg">DTU Maps</h1>
+    
+    <div class="mb-6 flex justify-center">
+      <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+      </svg>
+    </div>
+
+    <select id="destinationSelect" class="w-full p-3 mb-4 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 select-hover content-bg" aria-label="Chọn địa điểm đến">
+      <option value="">-- Chọn địa điểm đến --</option>
+    </select>
+
+    <button id="navigateButton" onclick="openGoogleMaps()" class="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold btn-hover hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center content-bg" aria-label="Mở Google Maps để chỉ đường">
+      <span class="spinner" id="spinner"></span>
+      <span id="buttonText">🚗 Chỉ đường ngay</span>
+    </button>
+
+    <p id="errorMessage" class="text-red-500 text-sm mt-2 hidden content-bg" role="alert"></p>
+  </div>
+  <script src="dtumaps.js"></script>
+</body>
+</html>

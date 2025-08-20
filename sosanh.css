@@ -1,0 +1,170 @@
+html, body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Times New Roman', serif;
+  font-size: 13px;
+  background: linear-gradient(to bottom right, #e0f7fa, #fff3e0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 24px;
+  text-shadow: 1px 1px 2px #aaa;
+}
+
+input[type="file"] {
+  margin: 10px;
+}
+
+button {
+  margin: 5px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background: #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+button:hover {
+  transform: scale(1.05);
+  background: #f0f0f0;
+}
+
+#fileCount {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+#fileContainers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  margin: 20px;
+  width: 95%;
+  max-width: 1400px;
+  flex-grow: 1;
+}
+
+.file-box {
+  border: 2px solid #444;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+  white-space: pre-wrap;
+  overflow-y: scroll;
+  max-height: 75vh;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  scroll-behavior: smooth;
+}
+
+.diff-line {
+  background-color: yellow;
+}
+
+.hidden-line {
+  display: none;
+}
+
+.scroll-btn {
+  position: fixed;
+  right: 10px;
+  background: white;
+  border: 2px solid #888;
+  font-size: 20px;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+  z-index: 1000;
+}
+
+textarea {
+  font-family: 'Times New Roman', serif;
+  font-size: 13px;
+  padding: 10px;
+  width: 90%;
+  max-width: 500px;
+  margin: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px solid #aaa;
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+}
+.button-group button {
+  white-space: nowrap;
+}
+
+.top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.top-bar button {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.top-bar button:hover {
+  background: #f0f0f0;
+}
+
+#compareResult {
+  margin-top: 10px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+.compare-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 90vw;
+  height: calc(100vh - 220px); /* trừ phần textarea + nút phía trên */
+  overflow: hidden;
+  padding: 0 10px;
+}
+
+.compare-box {
+  border: 2px solid #444;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  font-family: 'Times New Roman', serif;
+  font-size: 13px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  height: 75%;
+}
+
+.highlight {
+  background-color: yellow;
+}

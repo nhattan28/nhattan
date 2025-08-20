@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hàng giả</title>
+  <link rel="stylesheet" href="hanggia.css" />
+</head>
+<body>
+  <h1>KIỂM TRA SẢN PHẨM</h1>
+
+  <div class="search-container">
+    <div class="search-box">
+      <input type="text" id="keyword" placeholder="Nhập tên sản phẩm sữa..." oninput="search()" />
+      <button onclick="search()">🔍 Tìm</button>
+    </div>
+    <button class="clear-button" onclick="clearSearch()">Xóa</button>
+  </div>
+
+  <div class="result-box" id="results">
+    Nhập từ khóa để tìm kiếm sản phẩm sữa.
+  </div>
+
+  <div class="reference">
+    Nội dung tham khảo: Vui lòng kiểm tra kỹ thông tin sản phẩm trước khi sử dụng.
+  </div>
+
+  <script src="danhsachhanggia.js"></script>
+  <script src="hanggia.js"></script>
+</body>
+</html>

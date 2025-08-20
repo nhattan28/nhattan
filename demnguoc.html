@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đếm ngược</title>
+  <style>
+    body {
+      background: #fff1f1;
+      color: #000000;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      min-height: 100%;
+      padding: 50px 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    input {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 60px;
+      border: none;
+      border-radius: 6px;
+      background: #fbfbfb;
+      color: #000000;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #333;
+    }
+    #countdown {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>⏳Đếm ngược</h1>
+  <div class="input-group">
+    <input type="datetime-local" id="datetime">
+    <button onclick="startCountdown()">🚀 Bắt đầu</button>
+    <button onclick="resetCountdown()">❌ Reset</button>
+  </div>
+  <div id="countdown">Nhập ngày & bấm Bắt đầu!</div>
+
+  <script>
+    let countdownInterval;
+
+    function startCountdown() {
+      const datetime = document.getElementById('datetime').value;
+      if (!datetime) {
+        alert("Nhập ngày giờ đi má!");
+        return;
+      }
+
+      const targetDate = new Date(datetime).getTime();
+
+      clearInterval(countdownInterval); // clear cũ
+
+      countdownInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('countdown').innerText = "⏰ Hết giờ rồi má ơi!";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerText =
+          `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+      }, 1000);
+    }
+
+    function resetCountdown() {
+      clearInterval(countdownInterval);
+      document.getElementById('datetime').value = "";
+      document.getElementById('countdown').innerText = "Nhập ngày & bấm Bắt đầu!";
+    }
+  </script>
+</body>
+</html>

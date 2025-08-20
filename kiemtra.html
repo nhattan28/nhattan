@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e3f2fd, #f0f4ff);
+            color: #1a202c;
+            box-sizing: border-box;
+            line-height: 1.6;
+        }
+
+        .main-container {
+            border-radius: 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 1.5rem;
+            max-width: 95%;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2c5282;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+
+        .section-card {
+            background: linear-gradient(45deg, #f7faff, #e6f1ff);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; /* Giúp các thẻ có chiều cao bằng nhau trên desktop */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .section-card h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #6a2a2a;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-card p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            flex-grow: 1; /* Cho phép đoạn văn tự co giãn */
+            margin-bottom: 1.5rem;
+        }
+
+        .section-card button {
+            background: linear-gradient(to right, #4c82f7, #66a1ff);
+            color: white;
+            padding: 0.85rem 2rem;
+            border: none;
+            border-radius: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-card button:hover {
+            background: linear-gradient(to right, #ff0000, #59d6b9, #00ff00);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* --- Media Queries --- */
+
+        /* Màn hình từ 768px trở lên (iPad, Laptop...) */
+        @media (min-width: 768px) {
+            .main-container {
+                padding: 3rem;
+                max-width: 80%;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .description {
+                font-size: 1.25rem;
+            }
+            
+            .section-card {
+                padding: 2rem;
+            }
+
+            .section-card h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-card p {
+                font-size: 1.2rem;
+            }
+
+            .flex-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .section-card button {
+                width: auto;
+            }
+        }
+
+        /* Màn hình từ 1024px trở lên (Desktop, TV, Máy chiếu) */
+        @media (min-width: 1024px) {
+            .main-container {
+                padding: 4rem;
+                max-width: 60%;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            .description {
+                font-size: 1.3rem;
+            }
+
+            .flex-container {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Chào mừng đến với hệ thống kiểm tra!</h1>
+        <p class="description">
+            Khám phá các công cụ mạnh mẽ giúp bạn tạo và thực hiện các bài kiểm tra một cách dễ dàng và hiệu quả.
+        </p>
+
+        <div class="flex-container">
+            <div class="section-card">
+                <h2>📝 Kiểm tra Trắc Nghiệm</h2>
+                <p>
+                    Cho phép bạn tạo các bài kiểm tra tự luận từ file Word (.docx). Hệ thống sẽ tự động phân tích câu hỏi, đáp án đúng (in đậm).
+                </p>
+                <button onclick="loadPage(event, 'tracnghiem.html')">Bắt đầu Trắc Nghiệm</button>
+            </div>
+
+            <div class="section-card">
+                <h2>✍️ Kiểm tra Tự Luận</h2>
+                <p>
+                    Cho phép bạn tạo các bài kiểm tra tự luận từ file Word (.docx). Hệ thống sẽ hỗ trợ chấm điểm và so sánh đáp án.
+                </p>
+                <button onclick="loadPage(event, 'tuluan.html')">Bắt đầu Tự Luận</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadPage(event, page) {
+            event.preventDefault();
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

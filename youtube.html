@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YouTube</title>
+   <link href="youtube.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="main">
+  <div class="queue-section">
+    <div class="top-buttons">
+      <button onclick="prevVideo()">⏮️ Quay về</button>
+      <button onclick="resetAll()">🏠 Trang chủ</button>
+      <button onclick="nextVideo()">⏭️ Tiếp theo</button>
+    </div>
+    <input type="text" id="firstVideo" placeholder="🔗 Nhập video đầu tiên..." />
+    <button onclick="startFirstVideo()">Bắt đầu</button>
+   <div id="addSection" style="display: none;">
+  <input type="text" id="videoInput" placeholder="➕ Thêm video tiếp theo..." />
+  <div class="button-group">
+    <button onclick="addVideo()">➕ Thêm</button>
+    <button onclick="pasteAndAdd()">📋 Dán</button>
+  </div>
+</div>      
+      <div class="scrollable">
+      <ul id="queueList"></ul>
+    </div>
+  </div>
+  <div class="video-section">
+    <div id="playerContainer"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="youtube.js"></script>
+</body>
+</html>

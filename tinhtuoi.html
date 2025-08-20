@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tính Tuổi & Cung Hoàng Đạo</title>
+  <style>
+    body {
+      background: #fae0e0;
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      min-height: 40%;
+      padding: 30px 20px;
+    }
+    h1 {
+      margin-bottom: 5px;
+      color: #222;
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    input {
+      padding: 15px 15px;
+      border: 1px solid #db9393;
+      border-radius: 6px;
+      font-size: 16px;
+      background: #fae0e0;
+    }
+    #result {
+      font-size: 20px;
+      margin-top: 20px;
+      line-height: 1.6;
+      text-align: center;
+      color: #444;
+      padding: 20px;
+      border-radius: 8px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tính Tuổi Cung Hoàng Đạo</h1>
+  <div class="input-group">
+    <input type="date" id="birthday" placeholder="Chọn ngày sinh">
+  </div>
+  <div id="result">Chọn ngày sinh để bắt đầu đếm!</div>
+
+  <script>
+    let interval;
+
+    document.getElementById('birthday').addEventListener('change', function() {
+      const bday = this.value;
+      if (!bday) {
+        alert("Bạn chưa chọn ngày sinh kìa!");
+        return;
+      }
+
+      clearInterval(interval); // Dừng đếm cũ (nếu có)
+
+      const birthDate = new Date(bday);
+
+      interval = setInterval(() => {
+        const now = new Date();
+
+        let age = now.getFullYear() - birthDate.getFullYear();
+        const m = now.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
+          age--;
+        }
+
+        const diffMS = now - birthDate;
+
+        const daysLived = Math.floor(diffMS / (1000 * 60 * 60 * 24));
+        const totalSeconds = Math.floor(diffMS / 1000);
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalDays = Math.floor(totalHours / 24);
+
+        const years = Math.floor(totalDays / 365.25);
+        const months = Math.floor((totalDays % 365.25) / 30.44);
+        const days = Math.floor((totalDays % 365.25) % 30.44);
+
+        const zodiac = getZodiacSign(birthDate.getDate(), birthDate.getMonth() + 1);
+
+        document.getElementById('result').innerText = 
+          `👶 Tuổi của bạn: ${age} tuổi
+📅 Bạn đã sống: ${daysLived.toLocaleString()} ngày
+
+🧮 Chi tiết:
+ ${years} năm
+ ${months} tháng
+ ${days} ngày
+ ${totalHours.toLocaleString()} giờ
+ ${totalMinutes.toLocaleString()} phút
+ ${totalSeconds.toLocaleString()} giây
+
+🔮 Cung hoàng đạo: ${zodiac}`;
+      }, 1000);
+    });
+
+    function getZodiacSign(day, month) {
+      const zodiacSigns = [
+        ["Ma Kết", 1, 19], ["Bảo Bình", 1, 20, 2, 18], ["Song Ngư", 2, 19, 3, 20],
+        ["Bạch Dương", 3, 21, 4, 19], ["Kim Ngưu", 4, 20, 5, 20],
+        ["Song Tử", 5, 21, 6, 20], ["Cự Giải", 6, 21, 7, 22],
+        ["Sư Tử", 7, 23, 8, 22], ["Xử Nữ", 8, 23, 9, 22],
+        ["Thiên Bình", 9, 23, 10, 22], ["Bọ Cạp", 10, 23, 11, 21],
+        ["Nhân Mã", 11, 22, 12, 21], ["Ma Kết", 12, 22, 12, 31]
+      ];
+
+      for (let i = 0; i < zodiacSigns.length; i++) {
+        const sign = zodiacSigns[i];
+        if (
+          (month === sign[1] && day >= sign[2]) ||
+          (sign.length === 5 && month === sign[3] && day <= sign[4]) ||
+          (sign.length === 3 && month === sign[1] && day <= sign[2])
+        ) {
+          return sign[0];
+        }
+      }
+      return "Không xác định";
+    }
+  </script>
+</body>
+</html>

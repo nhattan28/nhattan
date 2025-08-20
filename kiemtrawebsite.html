@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Phân tích link gốc và kiểm tra độ an toàn của liên kết quảng cáo hoặc rút gọn.">
+  <meta name="keywords" content="phân tích link, kiểm tra an toàn link, phân tích UTM, công cụ SEO">
+  <meta name="author" content="Link Origin Analyzer">
+  <meta name="robots" content="index, follow">
+  <title>Phân Tích Link Gốc</title>
+  <link rel="stylesheet" href="kiemtrawebsite.css">
+</head>
+<body>
+  <canvas class="bg-animation" aria-hidden="true"></canvas>
+  <main class="container">
+    <h1>🔍Phân Tích Link Gốc</h1>
+    <section class="btn-group">
+      <input id="inputLink" placeholder="Paste ad/shortened link... - Dán link quảng cáo/rút gọn..." class="border p-2 w-full mb-2">
+      <button onclick="analyzeLink()">Analyze - Phân tích</button>
+      <button onclick="clearLink()">Clear - Xóa</button>
+      <button onclick="pasteFromClipboard()">Paste - Dán</button>
+    </section>
+    <section id="output" aria-live="polite"></section>
+  </main>
+   <script src="kiemtrawebsite.js"></script>
+</body>
+</html>

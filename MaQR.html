@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>QR</title>
+    <link rel="stylesheet" href="MaQR.css">
+</head>
+<body>
+  <h1>Tạo mã QR</h1>
+  <div class="input-group">
+    <input type="text" id="text" placeholder="Nhập link hoặc text">
+    <button onclick="pasteText()">📋 Dán</button>
+    <button onclick="clearText()">❌ Xóa</button>
+    <button onclick="generateQRCode()">⚡ Tạo QR</button>
+  </div>
+  <div id="qrcode"></div>
+
+  <!-- Dùng qrcodejs classic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="MaQR.js"></script>
+</body>
+</html>
