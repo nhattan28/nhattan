@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Định dạng</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #6ee7b7, #3b82f6, #8b5cf6, #ec4899);
+      background-size: 400% 400%;
+      animation: gradientFlow 12s ease infinite;
+      color: #1f2937;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      width: 95%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(5px);
+      box-sizing: border-box;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .container.blur {
+        filter: blur(5px); /* Áp dụng hiệu ứng làm mờ */
+        pointer-events: none; /* Vô hiệu hóa tương tác với nền */
+    }
+
+    h2 {
+      text-align: center;
+      color: #1e40af;
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea, pre {
+      width: 100%;
+      min-height: 200px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border: 2px solid #d1d5db;
+      border-radius: 0.75rem;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.95rem;
+      resize: vertical;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: border-color 0.3s ease;
+      background-color: #f9fafb;
+      overflow-x: auto; /* Cho phép cuộn ngang */
+      white-space: pre-wrap; /* Giữ định dạng khoảng trắng và xuống dòng tự động */
+      word-wrap: break-word; /* Ngắt từ nếu quá dài */
+    }
+
+    textarea:focus, pre:focus {
+      border-color: #8b5cf6;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    .output-section {
+      position: relative;
+    }
+
+    .placeholder {
+      position: absolute;
+      top: 1rem;
+      left: 1.25rem;
+      color: #9ca3af;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      font-size: 1rem;
+    }
+
+    pre:not(:empty) + .placeholder {
+      opacity: 0;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    button {
+      background: linear-gradient(to right, #ec4899, #8b5cf6);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* NEW CSS FOR POPUP (MODAL) - BASED ON YOUR IMAGE */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        padding: 2.5rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        z-index: 100001;
+        max-width: 700px; /* Kích thước tối đa giống ảnh */
+        width: 90%; /* Chiều rộng linh hoạt */
+        text-align: center;
+        border: 1px solid #e2e8f0;
+        opacity: 0; /* Bắt đầu với opacity 0 */
+        transition: opacity 0.3s ease, transform 0.3s ease; /* Thêm transition cho transform */
+    }
+
+    .popup.show {
+        opacity: 1; /* Hiện ra */
+        transform: translate(-50%, -50%) scale(1); /* Hiệu ứng phóng to nhẹ */
+    }
+
+    .popup.hide {
+        opacity: 0; /* Ẩn đi */
+        transform: translate(-50%, -50%) scale(0.9); /* Hiệu ứng thu nhỏ nhẹ */
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6); /* Overlay đậm hơn để làm mờ nền */
+        z-index: 100000;
+        backdrop-filter: blur(5px); /* Làm mờ nền mạnh hơn */
+    }
+
+    /* Điều chỉnh tiêu đề và nút đóng trong popup */
+    .popup #popupTitle {
+        font-size: 2.25rem; /* Kích thước tiêu đề lớn hơn */
+        font-weight: 800;
+        color: #1e40af; /* Màu xanh đậm cho tiêu đề */
+        margin-bottom: 1.5rem;
+    }
+    .popup #popupMessage {
+        font-size: 1.05rem; /* Kích thước nội dung phù hợp */
+        color: #4a5568;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    .popup #popupButtons button {
+        padding: 0.75rem 2rem; /* Nút lớn hơn */
+        font-size: 1.1rem;
+        border-radius: 0.75rem;
+        background: linear-gradient(to right, #3b82f6, #6366f1); /* Màu xanh tím */
+        color: white;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .popup #popupButtons button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .popup .flex.justify-end { /* Nút đóng ở góc trên bên phải */
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+    }
+    .popup .close-button {
+        background: none;
+        border: none;
+        font-size: 2.5rem;
+        color: #9ca3af;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        transition: color 0.2s ease;
+    }
+    .popup .close-button:hover {
+        color: #4b5563;
+    }
+
+    @media (max-width: 640px) {
+      h2 {
+        font-size: 1.75rem;
+      }
+      .container {
+        padding: 1rem;
+      }
+      textarea, pre {
+        min-height: 150px;
+      }
+      .popup {
+          padding: 1.5rem;
+          max-width: 95%;
+          border-radius: 1rem;
+      }
+      .popup #popupTitle {
+          font-size: 1.8rem;
+          margin-bottom: 1rem;
+      }
+      .popup #popupMessage {
+          font-size: 0.95rem;
+          margin-bottom: 1rem;
+      }
+      .popup #popupButtons button {
+          padding: 0.6rem 1.5rem;
+          font-size: 1rem;
+      }
+      .popup .close-button {
+          font-size: 2rem;
+          top: 0.75rem;
+          right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📌 Chuyển định dạng câu hỏi trắc nghiệm</h2>
+    <textarea id="input" placeholder="Dán nội dung ở đây..."></textarea>
+    <div class="buttons">
+  <button onclick="convert()">✨ Chuyển đổi</button>
+  <button onclick="copyOutput()">📋 Sao chép</button>
+  <button onclick="clearAll()">🗑️ Xóa tất cả</button>
+  <button onclick="window.location.href='kiemtra.html'">↩️ Quay về trang kiểm tra</button>
+</div>
+    <div class="output-section">
+      <pre id="output"></pre>
+      <div class="placeholder">Kết quả sẽ hiển thị ở đây...</div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+      <div class="flex justify-end">
+          <button onclick="closePopup()" class="close-button">
+              &times;
+          </button>
+      </div>
+      <h3 id="popupTitle"></h3>
+      <div id="popupMessage"></div>
+      <div id="popupButtons" class="mt-4 flex justify-center"></div>
+  </div>
+  
+  <script src="chuyendoi.js"></script>
+</body>
+</html>

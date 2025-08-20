@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm kiếm ảnh</title>
+    <link rel="stylesheet" href="anhsv.css">
+</head>
+<body>
+    <div class="main-container">
+        <div id="search-form-container">
+            <h1>Tìm kiếm ảnh sinh viên</h1>
+            <h2>ĐẠI HỌC DUY TÂN</h2>
+            <form id="search-form">
+                <div class="input-group">
+                    <input type="tel" id="student-id" placeholder="Nhập mã số sinh viên" required autocomplete="off" autofocus maxlength="15">
+                    <div class="input-buttons">
+                        <button type="button" id="paste-button">Dán</button>
+                        <button type="button" id="clear-button">Xóa</button>
+                    </div>
+                </div>
+                <button type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+
+        <div id="image-view">
+            <img id="student-image" src="" alt="Ảnh sinh viên">
+            <button id="back-button">Quay lại</button>
+        </div>
+    </div>
+
+    <script src="anhsv.js"></script>
+</body>
+</html>
