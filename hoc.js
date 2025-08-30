@@ -3,7 +3,7 @@ const folderIds = [
     "1p913hDh98xc2YakoYZfmXBbxHjUDYAm2",
 ];
 const apiKey = "AIzaSyCu6BDhyYqOj0AVa2M5rr1dqBKJ_9nSQS4";
-// Tạo khóa cache duy nhất cho mỗi trang
+// Tạo khóa cache duy nhất cho mỗi trang dựa trên tên tệp
 const currentPage = window.location.pathname.split("/").pop() || "tailieu.html";
 const CACHE_KEY = `cached_drive_files_${currentPage}`;
 const CACHE_DURATION = 4 * 30 * 24 * 3600 * 1000; // Thời gian cache: khoảng 4 tháng
@@ -120,7 +120,10 @@ document.getElementById("pageSelect").addEventListener("change", function () {
     if (selected) window.location.href = selected;
 });
 
-document.getElementById("pageSelect").value = currentPage;
+const currentPageElement = document.getElementById("pageSelect");
+if (currentPageElement) {
+    currentPageElement.value = currentPage;
+}
 
 window.addEventListener('load', async () => {
     const searchInput = document.getElementById("searchInput");
