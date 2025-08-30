@@ -3,7 +3,6 @@ const folderIds = [
     "1qe2Fk8vImJknxpz1GIA9v8rpVFv6z-Wk",
     "1p913hDh98xc2YakoYZfmXBbxHjUDYAm2",
     "1XDTi79waBP9Rga8xzk9WVmOsINXIiWDE",
-    "16UNY9zpsGOVrNgQ1NIvTW1KwPvp5yObg",
     "1FIvSs2AcmbcBKNblwFTG6SwEZMOaRGcs",
     "1Y4syXYDA_bkvByBe0djHBUd_EIqti-pI",
 ];
