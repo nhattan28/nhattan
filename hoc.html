@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Tổng hợp
+  </title>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <div class="topbar">
+   <select class="dropdown-menu" id="pageSelect">
+    <option value="tailieu.html">
+     📁 Tất cả
+    </option>
+    <option selected="" value="hoc.html">
+     🎓 Học tập
+    </option>
+    <option value="vanban.html">
+     📝 Văn bản
+    </option>
+    <option value="chiase.html">
+     🔗 Chia sẻ
+    </option>
+    <option value="upfile.html">
+     📤 Upfile
+    </option>
+    <option value="code.html">
+     💻 Code
+    </option>
+   </select>
+   <button id="clearCacheBtn" class="action-btn">🔄</button>
+   <div style="flex: 1; display: flex; align-items: center; gap: 0.5rem;">
+    <input class="search-bar" id="searchInput" placeholder="Tìm kiếm..." type="text"/>
+    <span id="fileCount" style="white-space: nowrap; font-weight: bold; color: #333;">
+    </span>
+   </div>
+  </div>
+  <main>
+   <div class="grid" id="fileList">
+   </div>
+  </main>
+  <div class="viewer-overlay hidden" id="viewerOverlay">
+   <div class="viewer-content">
+    <span id="closeViewer">
+     ×
+    </span>
+    <iframe id="viewerFrame" src="">
+    </iframe>
+   </div>
+  </div>
+  </script>
+  <script src="main.js">
+  </script>
+ </body>
+</html>
