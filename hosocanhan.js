@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearBtn = document.getElementById('clearBtn');
     const profileForm = document.getElementById('profileForm');
     const statusMessage = document.getElementById('statusMessage');
-    
+
     // Nút và container cho các trường động
     const emergencyContactContainer = document.getElementById('emergencyContactContainer');
     const addEmergencyBtn = document.querySelector('.add-more-btn-emergency');
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Các trường cần định dạng đặc biệt
     const cccdInput = document.getElementById('cccd');
     const bhytInput = document.getElementById('bhyt');
+    const studentIdInput = document.getElementById('studentId');
     const phoneInputs = document.querySelectorAll('input[type="tel"]');
 
     // Modal elements
@@ -84,6 +85,30 @@ document.addEventListener('DOMContentLoaded', () => {
             event.target.value = formattedNumber;
         });
     }
+    
+    // Định dạng Mã số sinh viên: 3-3-5-...
+    // SỬA ĐỔI: Sử dụng logic lặp lại để định dạng
+    if (studentIdInput) {
+        studentIdInput.addEventListener('input', (event) => {
+            let value = event.target.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
+            let formatted = '';
+            let pattern = [3, 3, 5];
+            let patternIndex = 0;
+            let totalLength = 0;
+            
+            for (let i = 0; i < value.length; i++) {
+                formatted += value[i];
+                totalLength++;
+                
+                if (totalLength === pattern[patternIndex] && i < value.length - 1) {
+                    formatted += ' ';
+                    totalLength = 0;
+                    patternIndex = (patternIndex + 1) % pattern.length;
+                }
+            }
+            event.target.value = formatted;
+        });
+    }
 
     // Định dạng Số tài khoản ngân hàng: 4-3-3-3-...
     document.addEventListener('input', (event) => {
@@ -122,6 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
             event.target.value = formattedValue.trim();
         }
     });
+    
+    // Thêm dòng nhập liệu
+    addEmergencyBtn.addEventListener('click', () => addEmergencyContactRow());
+    addSocialBtn.addEventListener('click', () =>addSocialMediaRow());
+    addBankBtn.addEventListener('click', () => addBankAccountRow());
 
     // Hiển thị modal khi click nút Tải xuống
     downloadBtn.addEventListener('click', () => {
