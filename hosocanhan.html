@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân</title>
+    <link rel="stylesheet" href="hosocanhan.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Hồ sơ cá nhân 🧑‍🎓</h1>
+        
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="personal-info">Thông tin cá nhân 📝</button>
+            <button class="tab-btn" data-tab="contact-info">Thông tin liên hệ 📞</button>
+            <button class="tab-btn" data-tab="account-info">Tài khoản 💳</button>
+        </div>
+
+        <form id="profileForm" autocomplete="off">
+            <div id="personal-info" class="tab-content active">
+                <h2>Thông tin cá nhân ✨</h2>
+                <div class="form-group">
+                    <label for="fullName">Họ và tên 👨‍🎓</label>
+                    <input type="text" id="fullName" name="Họ và tên" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="dob">Ngày sinh 🎂</label>
+                    <input type="date" id="dob" name="Ngày sinh" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="studentId">Mã số sinh viên 🔢</label>
+                    <input type="text" id="studentId" name="Mã số sinh viên" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="major">Ngành học 📚</label>
+                    <input type="text" id="major" name="Ngành học" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Giới tính 🚻</label>
+                    <select id="gender" name="Giới tính" autocomplete="off">
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cccd">Số căn cước công dân 🆔</label>
+                    <input type="text" id="cccd" name="Số căn cước công dân" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="bhyt">Số bảo hiểm y tế ⚕️</label>
+                    <input type="text" id="bhyt" name="Số bảo hiểm y tế" autocomplete="off">
+                </div>
+            </div>
+
+            <div id="contact-info" class="tab-content">
+                <h2>Thông tin liên hệ 📧</h2>
+                <div class="form-group">
+                    <label>Email 📧</label>
+                    <div id="emailContainer" class="dynamic-input-container">
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại cá nhân 📱</label>
+                    <div id="phoneContainer" class="dynamic-input-container">
+                         </div>
+                </div>
+                <div class="form-group">
+                    <label>Liên hệ khẩn cấp 🚨</label>
+                    <div id="emergencyContactContainer" class="dynamic-input-container">
+                        </div>
+                </div>
+            </div>
+            
+            <div id="account-info" class="tab-content">
+                <h2>Thông tin tài khoản 🏦</h2>
+                <div class="form-group">
+                    <label>Tài khoản ngân hàng 💰</label>
+                    <div id="bankAccountContainer" class="dynamic-input-container">
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label>Tài khoản mạng xã hội 🌐</label>
+                    <div id="socialMediaContainer" class="dynamic-input-container">
+                        </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="downloadBtn" class="btn primary">Tải xuống hồ sơ 💾</button>
+                <div class="file-upload-container">
+                    <label for="uploadFile" class="btn secondary">Tải file lên để chỉnh sửa ⬆️</label>
+                    <input type="file" id="uploadFile" accept=".txt">
+                </div>
+                <button type="button" id="clearBtn" class="btn danger" style="display:none;">Xóa hồ sơ 🗑️</button>
+            </div>
+            
+            <div id="statusMessage" class="status-message"></div>
+        </form>
+    </div>
+
+    <div id="downloadModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Đặt tên file 👇</h2>
+            <p>Nhập tên file bạn muốn lưu:</p>
+            <input type="text" id="fileNameInput" placeholder="VD: Hồ sơ cá nhân">
+            <button id="confirmDownloadBtn" class="btn primary">Tải xuống ✨</button>
+        </div>
+    </div>
+    
+    <script src="hosocanhan.js"></script>
+</body>
+</html>
