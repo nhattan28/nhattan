@@ -44,29 +44,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Định dạng số điện thoại: 3-3-4
-    phoneInputs.forEach(input => {
-        input.addEventListener('input', (event) => {
-            let phoneNumber = event.target.value.replace(/\s/g, '');
-            let formattedNumber = '';
-            
-            if (phoneNumber.length > 0) {
-                if (phoneNumber.length <= 3) {
-                    formattedNumber = phoneNumber;
-                } else if (phoneNumber.length <= 6) {
-                    formattedNumber = phoneNumber.substring(0, 3) + ' ' + phoneNumber.substring(3);
-                } else {
-                    formattedNumber = phoneNumber.substring(0, 3) + ' ' + phoneNumber.substring(3, 6) + ' ' + phoneNumber.substring(6, 10);
-                }
+    // Hàm định dạng số điện thoại: 3-3-4
+    function formatPhoneNumber(event) {
+        let phoneNumber = event.target.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
+        let formattedNumber = '';
+        
+        if (phoneNumber.length > 0) {
+            if (phoneNumber.length <= 3) {
+                formattedNumber = phoneNumber;
+            } else if (phoneNumber.length <= 6) {
+                formattedNumber = phoneNumber.substring(0, 3) + ' ' + phoneNumber.substring(3);
+            } else {
+                formattedNumber = phoneNumber.substring(0, 3) + ' ' + phoneNumber.substring(3, 6) + ' ' + phoneNumber.substring(6, 10);
             }
-            event.target.value = formattedNumber.trim();
-        });
+        }
+        event.target.value = formattedNumber.trim();
+    }
+    
+    // Áp dụng định dạng cho tất cả các trường số điện thoại có sẵn
+    phoneInputs.forEach(input => {
+        input.addEventListener('input', formatPhoneNumber);
     });
 
     // Định dạng CCCD và BHYT: 4-4-4
     if (cccdInput) {
         cccdInput.addEventListener('input', (event) => {
-            let idNumber = event.target.value.replace(/\s/g, '');
+            let idNumber = event.target.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
             let formattedNumber = '';
             if (idNumber.length > 0) {
                 formattedNumber = idNumber.match(/.{1,4}/g).join(' ');
@@ -77,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (bhytInput) {
         bhytInput.addEventListener('input', (event) => {
-            let idNumber = event.target.value.replace(/\s/g, '');
+            let idNumber = event.target.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
             let formattedNumber = '';
             if (idNumber.length > 0) {
                 formattedNumber = idNumber.match(/.{1,4}/g).join(' ');
@@ -87,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Định dạng Mã số sinh viên: 3-3-5-...
-    // SỬA ĐỔI: Sử dụng logic lặp lại để định dạng
     if (studentIdInput) {
         studentIdInput.addEventListener('input', (event) => {
             let value = event.target.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
@@ -150,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Thêm dòng nhập liệu
     addEmergencyBtn.addEventListener('click', () => addEmergencyContactRow());
-    addSocialBtn.addEventListener('click', () =>addSocialMediaRow());
+    addSocialBtn.addEventListener('click', () => addSocialMediaRow());
     addBankBtn.addEventListener('click', () => addBankAccountRow());
 
     // Hiển thị modal khi click nút Tải xuống
@@ -348,9 +350,15 @@ document.addEventListener('DOMContentLoaded', () => {
         newDiv.innerHTML = `
             <input type="text" name="Chức danh khẩn cấp" value="${name}" placeholder="Chức danh" autocomplete="off">
             <input type="tel" name="Số điện thoại khẩn cấp" value="${phone}" placeholder="Số điện thoại" autocomplete="off">
-            <button type="button" class="remove-btn">X</button>
+            <button type="button" class="remove-btn">✖️</button>
         `;
         emergencyContactContainer.appendChild(newDiv);
+        
+        // Gắn sự kiện định dạng số điện thoại cho trường mới được tạo
+        const newPhoneInput = newDiv.querySelector('input[type="tel"]');
+        if (newPhoneInput) {
+            newPhoneInput.addEventListener('input', formatPhoneNumber);
+        }
     }
 
     // Hàm tạo dòng mạng xã hội mới
@@ -361,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <input type="text" name="Tên mạng xã hội" value="${socialName}" placeholder="Tên mạng xã hội" autocomplete="off">
             <input type="text" name="Email/SĐT đăng nhập" value="${login}" placeholder="Email hoặc SĐT" autocomplete="off">
             <input type="password" name="Mật khẩu" value="${password}" placeholder="Mật khẩu" autocomplete="new-password">
-            <button type="button" class="remove-btn">X</button>
+            <button type="button" class="remove-btn">✖️</button>
         `;
         socialMediaContainer.appendChild(newDiv);
     }
@@ -373,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newDiv.innerHTML = `
             <input type="text" name="Tên ngân hàng" value="${bankName}" placeholder="Tên ngân hàng" autocomplete="off">
             <input type="text" name="Số tài khoản ngân hàng" value="${accountNumber}" placeholder="Số tài khoản" autocomplete="off">
-            <button type="button" class="remove-btn">X</button>
+            <button type="button" class="remove-btn">✖️</button>
         `;
         bankAccountContainer.appendChild(newDiv);
     }
