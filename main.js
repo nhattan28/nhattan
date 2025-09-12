@@ -1,5 +1,5 @@
 const API_KEY = "AIzaSyCu6BDhyYqOj0AVa2M5rr1dqBKJ_9nSQS4";
-const CACHE_DURATION = 7 * 24 * 3600 * 1000; // Thời gian cache: khoảng 7 ngày
+const CACHE_DURATION = 2* 31 * 24 * 3600 * 1000; // Thời gian cache: 2 tháng
 
 const pageFolders = {
     "tailieu.html": [
@@ -177,3 +177,4 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFiles(currentPage);
 
 });
+
