@@ -1,0 +1,191 @@
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --background-color: #cce6f7;
+            --text-color: #333;
+            --border-color: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: var(--card-background);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        p.description {
+            text-align: center;
+            color: #7f8c8d;
+        }
+
+        .input-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 40px 20px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .input-area.dragover {
+            border-color: var(--primary-color);
+            background-color: #e3f4f8;
+        }
+
+        .file-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .file-input-btn {
+            background-color: var(--primary-color);
+            color: rgb(250, 233, 233);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-input-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .hidden-input {
+            display: none;
+        }
+
+        .drag-text {
+            color: #7f8c8d;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+        .clear-all-btn {
+            background-color: var(--danger-color);
+            color: rgb(255, 227, 227);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .clear-all-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .results-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .result-item {
+            border: 1px solid #d5b5b5;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-display {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .image-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .image-controls button {
+            background-color: var(--secondary-color);
+            color: rgb(254, 215, 215);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .image-controls button:hover {
+            opacity: 0.8;
+        }
+
+        .image-controls button.hide-btn {
+            background-color: var(--danger-color);
+        }
+
+        .image-display img {
+            max-width: 100%;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .result-box {
+            background-color: var(--card-background);
+            border: 1px solid #f6d1d1;
+            border-radius: 6px;
+            padding: 15px;
+            min-height: 150px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 15px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .scroll-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: rgb(246, 189, 189);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 24px;
+            display: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .scroll-btn:hover {
+            background-color: #c8e7fc;
+        }
+
+        #scroll-down-btn {
+            bottom: 75px;
+        }
