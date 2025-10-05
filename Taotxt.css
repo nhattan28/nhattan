@@ -1,0 +1,144 @@
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: linear-gradient(-45deg, #89f7fe, #66a6ff, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      background-attachment: fixed;
+
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 90vh;
+      min-width: 90vw;
+      width: 90vw;
+      height: 90vh;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: linear-gradient(-45deg, #89f7fe, #66a6ff, #fbc2eb, #a6c1ee);
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100vw;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    h2 {
+      color: #2e7d32;
+      margin-bottom: 16px;
+      margin-top: 32px;
+    }
+    .input-group {
+      margin-bottom: 16px;
+      width: 95vw;
+      max-width: 1200px;
+    }
+    .filename-input {
+      width: 98%;
+      padding: 8px;
+      border: 1px solid #bdbdbd;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+    .textarea-wrapper {
+      display: flex;
+      width: 100%;
+      height: 69vh;
+      max-height: 69vh;
+    }
+    .line-numbers-area {
+      width: auto;
+      min-width: auto;
+      max-width: auto;
+      border: 1px solid #bdbdbd;
+      border-right: none;
+      border-radius: 6px 0 0 6px;
+      background: #f0f0f0;
+      color: #888;
+      font-family: monospace;
+      font-size: 1rem;
+      line-height: 1.5;
+      padding: 8px 0 8px 8px;
+      box-sizing: border-box;
+      resize: none;
+      overflow-y: hidden;
+      text-align: center;
+      outline: none;
+      background-clip: padding-box;
+    }
+    textarea.content-area {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #bdbdbd;
+      border-radius: 0 6px 6px 0;
+      font-size: 1rem;
+      font-family: monospace;
+      line-height: 1.5;
+      padding: 8px;
+      outline: none;
+      transition: border 0.2s;
+      box-sizing: border-box;
+      overflow-y: scroll;
+      resize: none;
+      background-clip: padding-box;
+    }
+    textarea.content-area:focus {
+      border: 1.5px solid #2e7d32;
+    }
+    button {
+      background: #2e7d32;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 10px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 12px;
+      margin-right: 4px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #388e3c;
+    }
+    button:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    @media (max-width: 600px) {
+      .input-group {
+        width: 90vw;
+        max-width: 90vw;
+      }
+      .textarea-wrapper {
+        height: 69vh;
+        max-height: 100vh;
+      }
+      textarea.content-area, .line-numbers-area {
+        height: 100%;
+        max-height: 100%;
+      }
+    }

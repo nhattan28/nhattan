@@ -1,0 +1,136 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #1a1a3d, #4d4d7a, #8d99ae, #2a2a72);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  overflow: hidden;
+}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.container {
+  width: 95%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 1.5em;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 1;
+}
+h1 {
+  text-align: center;
+  color: #2a2a72;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+.bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.3;
+  pointer-events: none;
+}
+.btn-group {
+  display: flex;
+  gap: 0.5em;
+}
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 0.5em 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+button {
+  background: #2a2a72;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  flex: 1;
+}
+button:hover {
+  background: #1a1a3d;
+  transform: scale(1.05);
+}
+.clear-btn {
+  background: #dc3545;
+}
+.clear-btn:hover {
+  background: #c82333;
+}
+.show-btn, .hide-btn {
+  background: #2a2a72;
+  width: auto;
+  padding: 5px 10px;
+}
+.hide-btn {
+  display: none;
+}
+#output {
+  margin-top: 1em;
+}
+.safe {
+  color: #28a745;
+}
+.warn {
+  color: #ffc107;
+}
+.danger {
+  color: #dc3545;
+  font-weight: bold;
+}
+.link-container {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: middle;
+  overflow-x: auto;
+  white-space: nowrap;
+  border: 1px solid #ddd;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+.hidden-text.active {
+  display: inline;
+}
+.hidden-text {
+  display: none;
+}
+.utm-table {
+  margin-top: 1em;
+  width: 100%;
+  border-collapse: collapse;
+}
+.utm-table td, .utm-table th {
+  border: 1px solid #ddd;
+  padding: 6px;
+}
+.utm-table th {
+  background: #f0f0f0;
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 1em;
+  }
+  .btn-group {
+    flex-direction: column;
+  }
+  .utm-table td, .utm-table th {
+    padding: 4px;
+  }
+}

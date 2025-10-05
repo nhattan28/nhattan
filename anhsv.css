@@ -1,0 +1,194 @@
+/* Reset nhỏ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #afd2f4, #c1f1b6);
+  padding: 20px;
+  color: #222;
+}
+
+/* Container chính */
+.main-container {
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* Tiêu đề */
+h1,
+h2 {
+  text-align: center;
+  color: #f55454;
+}
+
+/* Form */
+#search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#student-ids {
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid #c6dff5;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: all 0.2s ease;
+}
+#student-ids:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* Row */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+#upload-file {
+  flex: 1;
+}
+
+/* Buttons */
+button {
+  border: none;
+  cursor: pointer;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: 0.2s ease;
+}
+#search-btn {
+  background: #007bff;
+  color: #fff;
+  align-self: center;
+  margin-top: 0.5rem;
+}
+#search-btn:hover {
+  background: #0056b3;
+}
+
+.input-buttons {
+  display: flex;
+  gap: 8px;
+}
+.input-buttons button {
+  background: #f1f7ff;
+  color: #007bff;
+  border: 1px solid #c6dff5;
+}
+.input-buttons button:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+#back-button {
+  background: #6c757d;
+  color: #fff;
+}
+#back-button:hover {
+  background: #ff4d4d;
+}
+
+/* Info text */
+.info {
+  font-size: 0.85rem;
+  color: #0a3a66;
+}
+
+/* Image view */
+#image-view {
+  display: none;
+  margin-top: 1rem;
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  position: sticky; /* cố định */
+  top: 0; /* dính vào trên */
+  background: #fff; /* nền trắng để che ảnh khi cuộn */
+  padding: 10px;
+  border-bottom: 1px solid #e3edf7;
+  z-index: 10; /* nổi trên ảnh */
+}
+
+#search-in-images {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #c6dff5;
+  border-radius: 6px;
+}
+.summary {
+  font-size: 0.9rem;
+  color: #07385b;
+}
+
+/* Grid ảnh */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+.student-card {
+  background: #f9fcff;
+  border: 1px solid #e3edf7;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease;
+}
+.student-card:hover {
+  transform: translateY(-4px);
+}
+
+.student-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 8px;
+  background: #eaf5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #007bff;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.caption {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0a3a66;
+  text-align: center;
+}

@@ -1,0 +1,273 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+    margin: 0;
+    padding: 0;
+    color: #333;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+h2 {
+    color: #00796b;
+    margin: 18px 0 12px 0;
+    border-bottom: 2px solid #00bcd4;
+    padding-bottom: 5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+#upload-section, #test-section, #result-section {
+    max-width: 90%;
+    min-height: 360px;
+    margin: 35px auto;
+    background: #ffffff;
+    padding: 25px 30px 30px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+input[type="file"], input[type="text"] {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #b2ebf2;
+    font-size: 17px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+input[type="text"]:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
+    outline: none;
+}
+button {
+    margin-top: 20px;
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+button:hover {
+    background: #66bb6a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+}
+button:active {
+    transform: translateY(0);
+}
+button:disabled, button[style*="display: none"] {
+    background: #b0bec5;
+    color: #fff;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+#submit-btn {
+    background: #00bcd4;
+    box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+}
+#submit-btn:hover {
+    background: #26c6da;
+    box-shadow: 0 6px 20px rgba(0, 188, 212, 0.5);
+}
+#back-btn {
+    background: #ff9800;
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+    margin-right: 15px;
+}
+#back-btn:hover {
+    background: #ffa726;
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5);
+}
+
+#vocab-table table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background: #f1f8e9;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+#vocab-table th, #vocab-table td {
+    border: none;
+    border-bottom: 1px solid #e0f2f1;
+    padding: 10px 15px;
+    text-align: left;
+    font-size: 16px;
+}
+#vocab-table th {
+    background: #c8e6c9;
+    color: #1b5e20;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+#vocab-table tr:last-child td {
+    border-bottom: none;
+}
+.quiz-header {
+    display: flex;
+    /* THAY justify-content: space-between BẰNG center */
+    justify-content: center; /* CĂN GIỮA NỘI DUNG */
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    color: #00796b;
+    font-weight: 600;
+    padding: 5px 10px;
+    background: #e0f2f1;
+    border-radius: 8px;
+    /* XÓA text-align: center; VÌ NỘI DUNG ĐÃ ĐƯỢC CĂN BẰNG FLEX */
+    /* text-align: center; */
+}
+#question-area {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    font-weight: 500;
+    color: #3f51b5;
+    padding: 10px;
+    background: #e8eaf6;
+    border-radius: 8px;
+    border-left: 5px solid #3f51b5;
+}
+#result-area table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background: #f7fbfe;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+#result-area th, #result-area td {
+    border: none;
+    border-bottom: 1px solid #cfd8dc;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+#result-area th {
+    background: #b3e5fc;
+    color: #01579b;
+    font-weight: 700;
+}
+#result-area tr td:nth-child(3) {
+    font-weight: bold;
+    text-align: center;
+}
+#result-area tr td:nth-child(3):contains('✔️') {
+    color: #4caf50;
+}
+#result-area tr td:nth-child(3):contains('❌') {
+    color: #f44336;
+}
+
+#score-area {
+    font-size: 1.8rem;
+    color: #ff5722;
+    margin: 25px 0 0 0;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+    border: 3px dashed #ffab91;
+    border-radius: 10px;
+    background: #fff3e0;
+}
+
+#custom-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+}
+
+#custom-alert-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.9);
+    animation: bounceIn 0.3s forwards;
+    border: 5px solid #ff9800;
+}
+
+#alert-message {
+    font-size: 1.2rem;
+    color: #ff5722;
+    margin-bottom: 20px;
+    font-weight: 600;
+    white-space: pre-line;
+}
+
+#alert-close-btn {
+    background: #00bcd4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+    box-shadow: 0 3px 10px rgba(0, 188, 212, 0.3);
+}
+
+#alert-close-btn:hover {
+    background: #26c6da;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 700px) {
+    #upload-section, #test-section, #result-section {
+        max-width: 98vw;
+        padding: 15px 4vw !important;
+        margin: 20px auto;
+        box-shadow: none;
+        text-align: center;
+    }
+    h2 { font-size: 1.2rem; }
+    #question-area { font-size: 1.25rem; }
+    #vocab-table th, #vocab-table td, #result-area th, #result-area td { font-size: 14px;}
+    button { padding: 10px 18px; font-size: 15px; }
+}
+@media (max-width: 500px) {
+    body { padding: 0; }
+    #upload-section, #test-section, #result-section {
+        min-height: unset;
+        box-shadow: none;
+        padding: 15px 2vw;
+        margin: 10px auto;
+        text-align: center;
+    }
+    input, button { font-size: 14px; }
+    #question-area { font-size: 1.1rem; margin-bottom: 15px;}
+    .quiz-header { font-size: 1.1rem; }
+    #score-area { font-size: 1.5rem; }
+    #custom-alert-box { padding: 20px; }
+}

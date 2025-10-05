@@ -1,0 +1,119 @@
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d7f8cc;
+            color: #333;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+        }
+        h1 {
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload {
+            border: 2px dashed #fb0202;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .custom-file-upload:hover {
+            background-color: #fefefe;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #1c8c47;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #9bc3ff;
+        }
+        #status, #summary {
+            margin-top: 20px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        #summary p {
+            font-weight: normal;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        #outputContainer {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #outputTableContainer {
+            width: 100%;
+            overflow-x: auto;
+            padding: 10px;
+        }
+        #outputTable {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        #outputTable th, #outputTable td {
+            border: 1px solid #000000;
+            padding: 8px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        #outputTable th {
+            background-color: #f7dbdb;
+            text-align: center;
+            font-weight: bold;
+        }
+        .merged-cell {
+            vertical-align: middle;
+        }
+        #summaryTable {
+            width: 100%;
+            max-width: 400px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        #summaryTable td {
+            border: 1px solid #ff0303;
+            padding: 8px;
+            text-align: center;
+        }
+        #summaryTable td:first-child {
+            text-align: right;
+            font-weight: bold;
+            text-align: center;
+        }
+        #summaryTable td:last-child {
+            text-align: center;
+        }
+        #image-wrapper {
+            padding: 0.5cm;
+        }

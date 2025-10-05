@@ -1,0 +1,190 @@
+html, body {
+  margin: 5mm; /* Lề đều mọi cạnh 5mm */
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #e6f0fa;
+  box-sizing: border-box;
+  /* Đảm bảo không có cuộn ngang và chiếm đúng phần còn lại của viewport */
+  width: calc(100vw - 10mm); 
+  min-height: calc(100vh - 10mm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+/* Card trắng: chiếm 100% không gian còn lại (đã trừ 10mm lề) */
+.card {
+  position: relative;
+  background: linear-gradient(115deg, #fff, #eaf4fd 80%);
+  border-radius: 40px;
+  box-shadow: 0 16px 48px #6791c128, 0 1px 2px #1976d225;
+  padding: 60px 3vw 55px 3vw;
+  min-width: 900vh;
+  min-height: 90vh;
+  margin: 0;
+  animation: showcard .5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+@keyframes showcard {from { opacity: 0; } to { opacity: 1; }}
+
+/* --- TEXTAREA VÀ ANSWER BLOCK --- */
+.answer-block {
+  width: 90%;
+  max-width: 900px;
+  flex-grow: 1;
+}
+textarea {
+  min-height: 250px;
+  max-height: 500px;
+  width: 100%;       
+  border-radius: 16px;
+  border: 2px solid #4896df;
+  font-size: 20px;
+  font-family: inherit;
+  background: #f8fbff;
+  padding: 18px 14px;
+  resize: vertical;
+  box-sizing: border-box;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+/* --- TIMER VÀ PROGRESS BAR --- */
+.timer-container {
+    width: 97%;
+    max-width: 950px;
+    margin: 15px 0 25px;
+    flex-shrink: 0;
+}
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.quiz-header .question-count {
+    font-weight: 700;
+    font-size: 21px;
+    color: #1877f2;
+}
+.quiz-header #timer {
+    font-size: 20px;
+    color: #cb251f;
+    font-weight: 600;
+    margin: 0;
+}
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #e3e8f0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.progress-bar-fill {
+    height: 100%;
+    background-color: #21ca83; /* Màu khởi tạo */
+    width: 100%;
+    transition: width 1s linear, background-color 0.5s ease; /* Hiệu ứng mượt mà */
+}
+
+/* --- BUTTONS: Trang nhập liệu (Lớn hơn, dễ đọc hơn) --- */
+.btn-row, .btn-row2 {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 18px;
+  width: 90%;
+  max-width: 700px;
+  flex-shrink: 0;
+}
+.quiz-control-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+  width: 97%;
+  max-width: 600px;
+  flex-shrink: 0;
+}
+/* Kích thước lớn cho các nút trên trang nhập liệu VÀ NÚT LÀM LẠI BÀI KHÁC */
+.btn-row .main-btn, .btn-row .func-btn, 
+.btn-row2 .func-btn, .btn-row2 .home-btn, 
+.result-block + .main-btn { /* Nút Làm lại bài khác */
+    width: 50%; 
+    font-size: 1.25rem; 
+    padding: 22px 0; 
+    border-radius: 18px; 
+    font-weight: 600;
+    max-width: 350px; /* Giới hạn để nút không quá dài */
+}
+/* Nút Quay lại và Tiếp theo BẰNG NHAU (trang quiz) */
+.quiz-control-row #btnPrev,
+.quiz-control-row #btnNext {
+    width: 48%;
+    font-size: 1.13rem;
+    padding: 20px 0;
+    border-radius: 35px;
+}
+
+/* --- RESULT BLOCK (Fix hiển thị đáp án) --- */
+.result-block {
+  padding: 30px 25px 21px;
+  margin: 24px 0;
+  background: linear-gradient(120deg,#f7fff6,#eaf5ec 60%);
+  border-radius: 22px;
+  box-shadow: 0 2px 14px #adbda833;
+  font-size: 18px;
+  width: 97%;
+  max-width: 950px;
+}
+.result-block ul { list-style: none; padding: 0; }
+.incorrect i {
+    display: block;
+    max-height: 150px;
+    overflow-y: auto; /* Tạo thanh cuộn cho đáp án */
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    /* KHÔNG dùng white-space: pre-wrap; để HTML tự xử lý xuống dòng */
+    color: #444;
+    font-style: normal;
+}
+.correct { color: #219a08; font-weight: 600; font-size: 17.7px; }
+.incorrect { color: #bb2c12; font-weight: 600; font-size: 17.7px; }
+
+/* --- MODAL (POPUP HDSD) --- */
+.modal {
+  display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 9999; background: rgba(0, 0, 0, 0.4); align-items: center; justify-content: center;
+}
+.modal.show {display: flex;}
+.modal-content {
+  background: #fff; border-radius: 18px; padding: 33px 38px; max-width: 450px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  transform: scale(0.95); transition: transform 0.3s ease-out;
+}
+.modal.show .modal-content {transform: scale(1);}
+.close { float: right; font-size: 28px; font-weight: 900; cursor: pointer; color: #888;}
+
+/* Các style chung */
+h2,h3 { color: #1877f2; margin-bottom: 28px; text-align: center; letter-spacing: 0.5px;}
+.main-btn { background: #3797fa; color: #fff;}
+.func-btn { background: #21ca83; color: #fff;}
+.home-btn { background: #3749fa; color: #fff;}
+.nav-btn{ background: #f1ac19; color: #fff;}
+.main-btn:disabled {background: #b0cfee; cursor: not-allowed;}
+
+/* Responsive */
+@media(max-width:600px){
+  .btn-row, .btn-row2 { flex-direction: column; gap: 8px; width: 95%; max-width: 400px; }
+  .btn-row .main-btn, .btn-row .func-btn, .btn-row2 .func-btn, .btn-row2 .home-btn { width: 100%; }
+  .result-block + .main-btn { width: 100%; max-width: 400px;} /* Nút Làm lại bài khác */
+  .quiz-control-row{gap:10px; width: 100%; max-width: 400px;}
+} 
