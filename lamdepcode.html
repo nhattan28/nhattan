@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beautify Code</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.min.css"
+    />
+    <link rel="stylesheet" href="lamdepcode.css" />
+  </head>
+  <body>
+    <h1>🎨 Làm đẹp mã nguồn</h1>
+
+    <textarea id="codeInput" placeholder="Dán mã của bạn vào đây..."></textarea>
+    <div>
+      <button onclick="pasteFromClipboard()">📋 Dán</button>
+      <button onclick="beautifyCode()">🎨 Làm đẹp</button>
+      <button onclick="copyResult()">📋 Copy kết quả</button>
+      <button onclick="clearAll()">🗑️ Xóa</button>
+    </div>
+
+    <pre><code id="outputCode" class="language-javascript"></code></pre>
+
+    <button
+      id="scrollTopBtn"
+      onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+    >
+      ↑
+    </button>
+    <button
+      id="scrollBottomBtn"
+      onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"
+    >
+      ↓
+    </button>
+
+    <!-- Prettier + Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.2.5/standalone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.2.5/plugins/babel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.2.5/plugins/html.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.2.5/plugins/typescript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.2.5/plugins/json.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.2.5/plugins/yaml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.2.5/plugins/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.2.5/plugins/graphql.js"></script>
+
+    <!-- Prism.js -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-typescript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-graphql.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
+
+    <script src="lamdepcode.js"></script>
+  </body>
+</html>

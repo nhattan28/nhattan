@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chương Trình Chọn Ngẫu Nhiên Tên</title>
+    <link rel="stylesheet" href="chonngaunhien.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Chọn Ngẫu Nhiên</h1>
+      <div id="input-screen">
+        <textarea
+          id="nameInput"
+          rows="5"
+          placeholder="Nhập cách nhau bởi dấu phẩy (ví dụ: Cơm, Gà, Cá)"
+        ></textarea>
+        <div class="button-group">
+          <button id="startButton">Bắt Đầu</button>
+          <button id="pasteButton">Dán</button>
+          <button id="clearButton">Xóa</button>
+        </div>
+      </div>
+      <div id="result-screen" style="display: none">
+        <div class="stats">
+          <p>Số lượng tên: <span id="totalNamesCount"></span></p>
+          <div class="progress-bar-container">
+            <div id="progressBar"></div>
+          </div>
+        </div>
+        <div id="stage-one-result" style="display: none">
+          <p id="current-stage">Tên đang quét:</p>
+          <h2 id="resultName"></h2>
+        </div>
+        <div id="stage-two" style="display: none">
+          <p>3 nhân vật may mắn</p>
+          <div class="selected-names-container">
+            <span id="name1" class="selected-name"></span>
+            <span id="name2" class="selected-name"></span>
+            <span id="name3" class="selected-name"></span>
+          </div>
+          <p>Nhân vật đặc biệt</p>
+          <h2 id="finalName"></h2>
+        </div>
+        <button id="backButton">Quay lại</button>
+      </div>
+    </div>
+    <script src="chonngaunhien.js"></script>
+  </body>
+</html>

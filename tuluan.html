@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kiểm tra tự luận</title>
+    <link rel="stylesheet" href="tuluan.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+  </head>
+  <body>
+    <main>
+      <div class="card" id="mainCard"></div>
+    </main>
+    <div id="popupGuide" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeGuide">&times;</span>
+        <h3>Hướng dẫn sử dụng</h3>
+        <ul>
+          <li>
+            Mỗi câu hỏi là một đoạn. Đáp án nằm ngay dưới, in đậm, dài bao nhiêu
+            dòng cũng là đáp án của câu hỏi phía trên.
+          </li>
+          <li>
+            Có thể tuỳ chọn giới hạn thời gian (số phút rỗng ban đầu, nhập tự ý,
+            tối đa 999 phút).
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="tuluan.js"></script>
+  </body>
+</html>

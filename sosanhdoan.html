@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>So sánh</title>
+    <link rel="stylesheet" href="sosanh.css" />
+  </head>
+  <body>
+    <h2>So sánh văn bản</h2>
+
+    <div class="top-bar">
+      <textarea
+        id="text1"
+        placeholder="Nhập hoặc dán văn bản 1 tại đây..."
+      ></textarea>
+      <textarea
+        id="text2"
+        placeholder="Nhập hoặc dán văn bản 2 tại đây..."
+      ></textarea>
+      <div class="button-group">
+        <button onclick="compareTexts()">So sánh</button>
+        <button onclick="clearTexts()">Xóa</button>
+        <button onclick="window.location.href='sosanh.html'">Trang chủ</button>
+        <button onclick="toggleDifferences(true)">Chỉ hiện khác nhau</button>
+        <button onclick="toggleDifferences(false)">Hiện tất cả</button>
+      </div>
+    </div>
+
+    <div id="compareResult">
+      <div class="compare-container">
+        <div class="compare-box" id="result1"></div>
+        <div class="compare-box" id="result2"></div>
+      </div>
+    </div>
+    <script src="sosanhdoan.js"></script>
+  </body>
+</html>

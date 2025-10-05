@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tra Cứu Tỉnh Thành Việt Nam</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="tinhthanh.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tra Cứu Tỉnh Thành Việt Nam</h1>
+      <div class="search-box">
+        <input
+          type="text"
+          id="provinceInput"
+          placeholder="Nhập tên tỉnh/thành phố..."
+          onkeyup="autocomplete()"
+          onkeypress="if(event.key === 'Enter') searchProvince()"
+        />
+        <button id="searchButton" onclick="searchProvince()">
+          <i class="fas fa-search"></i> Tìm kiếm
+        </button>
+      </div>
+      <div id="result">
+        <div class="info">
+          <strong>Khu vực:</strong> <span id="region"></span>
+        </div>
+        <div class="info">
+          <strong>Tên miền:</strong>
+          <a id="domain" href="#" target="_blank"></a>
+        </div>
+        <div class="info">
+          <strong>Tên sau sáp nhập:</strong> <span id="newName"></span>
+        </div>
+        <div class="info">
+          <strong>Trung tâm hành chính:</strong> <span id="adminCenter"></span>
+        </div>
+      </div>
+      <div id="suggestions" class="autocomplete-items"></div>
+    </div>
+    <script src="tinhthanh.js"></script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chuyển đổi JSON sang Excel</title>
+    <link rel="stylesheet" href="chuyendoijson.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Giải mã JSON sang Excel</h1>
+      <label for="jsonFile" class="custom-file-upload">
+        Chọn file JSON thời khóa biểu
+      </label>
+      <input type="file" id="jsonFile" accept=".json" />
+
+      <div class="button-group" style="display: none" id="btnGroup">
+        <button id="convertAndDisplayBtn">Chuyển đổi & Xem trước</button>
+        <button id="convertAndDownloadBtn">Chuyển đổi & Tải xuống</button>
+      </div>
+
+      <div id="status"></div>
+      <div id="summary" style="display: none">
+        <h3>Tổng kết</h3>
+        <p id="totalCredits"></p>
+        <p id="tuitionFee"></p>
+      </div>
+
+      <div id="outputContainer" style="display: none">
+        <button id="copyImageBtn" style="margin-bottom: 10px">
+          Sao chép ảnh bảng
+        </button>
+        <div id="image-wrapper">
+          <div id="printableArea" style="margin-top: 40px">
+            <div id="outputTableContainer">
+              <table id="outputTable"></table>
+            </div>
+            <table id="summaryTable"></table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="chuyendoijson.js"></script>
+  </body>
+</html>

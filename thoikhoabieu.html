@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thời Khóa Biểu Đăng Ký Tín Chỉ</title>
+    <link rel="stylesheet" href="thoikhoabieu.css" />
+  </head>
+  <body>
+    <div class="tabs">
+      <button class="tab-button active" onclick="showPage('page1')">
+        Nhập Môn Học
+      </button>
+      <button class="tab-button" onclick="showPage('page2')">
+        Thời Khóa Biểu
+      </button>
+      <button class="tab-button" onclick="showPage('page3')">
+        Môn Đã Đăng Ký
+      </button>
+      <button class="tab-button" onclick="showPage('page4')">Học Phí</button>
+    </div>
+
+    <div class="container">
+      <div id="page1" class="page">
+        <h2>Nhập thông tin môn học</h2>
+        <form id="course-form" autocomplete="off">
+          <div class="input-row">
+            <div class="input-group">
+              <label for="course-name">Tên môn học:</label>
+              <input
+                type="text"
+                id="course-name"
+                required
+                autocomplete="off"
+                placeholder="VD: Triết Học Marx - Lenin"
+              />
+            </div>
+            <div class="input-group">
+              <label for="class-code">Mã lớp:</label>
+              <input
+                type="text"
+                id="class-code"
+                required
+                autocomplete="off"
+                placeholder="VD: L01"
+              />
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label for="reg-code">Mã đăng ký:</label>
+              <input
+                type="text"
+                id="reg-code"
+                required
+                autocomplete="off"
+                placeholder="VD: 12345678"
+              />
+            </div>
+            <div class="input-group">
+              <label for="semester-week">Tuần học (GĐ):</label>
+              <select id="semester-week" required>
+                <option value="">-- Chọn --</option>
+                <option value="Giai đoạn 1">Giai đoạn 1</option>
+                <option value="Giai đoạn 2">Giai đoạn 2</option>
+                <option value="Cả 2 giai đoạn">Cả 2 giai đoạn</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label for="lecturer">Giảng viên:</label>
+              <input
+                type="text"
+                id="lecturer"
+                required
+                autocomplete="off"
+                placeholder="VD: Nguyễn Văn A"
+              />
+            </div>
+            <div class="input-group">
+              <label for="credits">Số tín chỉ:</label>
+              <select id="credits" required>
+                <option value="">-- Chọn --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+
+          <h3>Thời gian học</h3>
+          <div id="class-sessions-container">
+            <div class="class-session-row">
+              <div class="input-row">
+                <div class="input-group">
+                  <label for="day-of-week-0">Thứ:</label>
+                  <select id="day-of-week-0" class="day-of-week" required>
+                    <option value="">-- Chọn --</option>
+                    <option value="T2">T2</option>
+                    <option value="T3">T3</option>
+                    <option value="T4">T4</option>
+                    <option value="T5">T5</option>
+                    <option value="T6">T6</option>
+                    <option value="T7">T7</option>
+                    <option value="CN">CN</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="time-0">Giờ học:</label>
+                  <select id="time-0" class="time" required>
+                    <option value="">-- Chọn --</option>
+                    <option value="07:00-09:00">07:00 - 09:00</option>
+                    <option value="07:00-10:15">07:00 - 10:15</option>
+                    <option value="07:00-11:15">07:00 - 11:15</option>
+                    <option value="09:15-11:15">09:15 - 11:15</option>
+                    <option value="13:00-15:00">13:00 - 15:00</option>
+                    <option value="13:00-16:15">13:00 - 16:15</option>
+                    <option value="13:00-17:15">13:00 - 17:15</option>
+                    <option value="15:15-17:15">15:15 - 17:15</option>
+                    <option value="17:45-21:00">17:45 - 21:00</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-row">
+                <label for="location-type-0">Loại địa điểm:</label>
+                <select id="location-type-0" class="location-type" required>
+                  <option value="">-- Chọn --</option>
+                  <option value="online">Online</option>
+                  <option value="campus">Cơ sở</option>
+                </select>
+                <div class="campus-location-field" style="display: none">
+                  <label for="location-0">Địa điểm:</label>
+                  <select id="location-0" class="location" required>
+                    <option value="">-- Chọn địa điểm --</option>
+                    <option value="Hòa Khánh Nam">Hòa Khánh Nam</option>
+                    <option value="209 Phan Thanh">209 Phan Thanh</option>
+                    <option value="K7/25 Quang Trung">K7/25 Quang Trung</option>
+                    <option value="254 Nguyễn Văn Linh">
+                      254 Nguyễn Văn Linh
+                    </option>
+                    <option value="78A Phan Văn Trị">78A Phan Văn Trị</option>
+                    <option value="137 Nguyễn Văn Linh">
+                      137 Nguyễn Văn Linh
+                    </option>
+                    <option value="03 Quang Trung">03 Quang Trung</option>
+                  </select>
+                </div>
+                <button
+                  type="button"
+                  class="remove-session-btn"
+                  style="display: none"
+                >
+                  Xóa
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="add-session-btn">Thêm giờ học</button>
+            <button type="submit" class="add-course-btn">Thêm Môn Học</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="page2" class="page" style="display: none">
+        <h2>Thời Khóa Biểu</h2>
+        <div class="timetable-switch-buttons">
+          <button class="timetable-button active" onclick="showTimetable('1')">
+            Giai đoạn 1
+          </button>
+          <button class="timetable-button" onclick="showTimetable('2')">
+            Giai đoạn 2
+          </button>
+        </div>
+
+        <div class="timetable-display" id="timetable-gd1">
+          <table id="table-gd1">
+            <thead>
+              <tr>
+                <th>Giờ</th>
+                <th>T2</th>
+                <th>T3</th>
+                <th>T4</th>
+                <th>T5</th>
+                <th>T6</th>
+                <th>T7</th>
+                <th>CN</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="timetable-display" id="timetable-gd2" style="display: none">
+          <table id="table-gd2">
+            <thead>
+              <tr>
+                <th>Giờ</th>
+                <th>T2</th>
+                <th>T3</th>
+                <th>T4</th>
+                <th>T5</th>
+                <th>T6</th>
+                <th>T7</th>
+                <th>CN</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="page3" class="page" style="display: none">
+        <h2>Môn Học Đã Đăng Ký</h2>
+        <div class="course-summary">
+          <p>
+            Tổng số tín chỉ đã đăng ký: <strong id="total-credits">0</strong>
+          </p>
+        </div>
+        <div class="course-list">
+          <table>
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên môn học</th>
+                <th>Mã lớp</th>
+                <th>Mã ĐK</th>
+                <th>GĐ</th>
+                <th>TC</th>
+                <th>Giảng viên</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="registered-courses-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="page4" class="page" style="display: none">
+        <h2>Quản lý Học Phí và Dữ liệu</h2>
+        <p>
+          <label for="fee-per-credit">Học phí (16 tín chỉ):</label>
+          <input
+            type="text"
+            id="fee-per-credit"
+            placeholder="Nhập học phí 16 tín chỉ"
+            oninput="calculateTuitionFee()"
+          />
+        </p>
+        <p><strong>Chọn chương trình:</strong></p>
+        <div class="checkbox-group">
+          <label
+            ><input
+              type="radio"
+              name="program-type"
+              value="normal"
+              checked
+              onchange="calculateTuitionFee()"
+            />
+            Chương trình thông thường</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="program-type"
+              value="advanced"
+              onchange="calculateTuitionFee()"
+            />
+            Chương trình Tiên tiến quốc tế</label
+          >
+        </div>
+        <p>
+          <strong>Tổng học phí tạm tính:</strong>
+          <span id="total-tuition-fee">0 VNĐ</span>
+        </p>
+        <div class="file-actions">
+          <button
+            type="button"
+            class="file-action-btn clear-all-btn"
+            onclick="clearAllCourses()"
+          >
+            Xóa tất cả môn
+          </button>
+          <button
+            type="button"
+            class="file-action-btn export-btn"
+            onclick="exportData()"
+          >
+            Xuất File
+          </button>
+          <button
+            type="button"
+            class="file-action-btn import-btn"
+            onclick="redirectToPage()"
+          >
+            Giải mã JSON
+          </button>
+          <label class="file-action-btn import-btn custom-file-upload">
+            <input
+              type="file"
+              id="import-file-page4"
+              accept=".json"
+              onchange="loadData(event)"
+            />
+            Tải File
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div id="custom-alert" class="alert-container">
+      <div class="alert-box">
+        <span id="alert-icon" class="alert-icon"></span>
+        <span id="alert-title" class="alert-title"></span>
+        <div id="alert-message"></div>
+        <button id="alert-ok-btn">OK</button>
+      </div>
+    </div>
+
+    <script src="thoikhoabieu.js"></script>
+  </body>
+</html>

@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" /> 
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Trắc Nghiệm</title>
+    <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+          body {
+              font-family: 'Inter', 'Segoe UI', sans-serif;
+              margin: 0;
+              padding: 0;
+              background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')
+              no-repeat center center fixed;
+              background-size: 100% 100%;
+              animation: gradientFlow 12s ease infinite;
+              color: #1f2937;
+              min-height: 98vh;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              touch-action: manipulation;
+              user-select: none;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+          }
+          html, body {
+          height: 100vh;
+          overflow: hidden;
+          }
+
+          @keyframes gradientFlow {
+              0% {
+                  background-position: 0% 50%;
+              }
+              50% {
+                  background-position: 100% 50%;
+              }
+              100% {
+                  background-position: 0% 50%;
+              }
+          }
+
+          .container {
+          width: 95%;
+          max-width: 1200px;
+          max-height: 95vh; /* mới */
+          overflow: hidden;   /* hoặc hidden nếu cắt hẳn, auto nếu cần scroll nội bộ */
+          margin: auto;     /* bỏ margin ngoài, dùng auto căn giữa */
+          padding: 1rem;    /* padding nhỏ lại nếu cần */
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          background: rgba(255, 239, 239, 0.95);
+          border-radius: 5rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(0);
+          transition: transform 0.3s ease;
+      }
+
+
+          .container:hover {
+              transform: translateY(-5px);
+          }
+
+          .container.blur {
+              filter: blur(5px); /* Áp dụng hiệu ứng làm mờ */
+              pointer-events: none; /* Vô hiệu hóa tương tác với nền */
+          }
+
+          h2 {
+              text-align: center;
+              color: #1e40af;
+              font-size: 2rem;
+              font-weight: 700;
+              margin-bottom: 1.5rem;
+              text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+
+          .question-block {
+              display: none;
+              border-radius: 1rem;
+              background: linear-gradient(-45deg, #fef3c7, #fed7aa, #fecaca, #f3e8ff);
+              background-size: 400% 400%;
+              animation: glow 10s ease infinite;
+              padding: 1.5rem;
+              box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+              margin-bottom: 1.5rem;
+              user-select: none;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+          }
+
+          @keyframes glow {
+              0% {
+                  background-position: 0% 50%;
+              }
+              50% {
+                  background-position: 100% 50%;
+              }
+              100% {
+                  background-position: 0% 50%;
+              }
+          }
+
+          button {
+              background: linear-gradient(to right, #ec4899, #8b5cf6);
+              color: white;
+              padding: 0.75rem 1.5rem;
+              border: none;
+              border-radius: 1rem;
+              font-size: 1rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: transform 0.2s ease, box-shadow 0.2s ease;
+              touch-action: manipulation;
+          }
+
+          button:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+          }
+
+          #startQuiz button {
+              font-size: 1.5rem;
+              padding: 1rem 2.5rem;
+              background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+              animation: pulse 1.5s infinite;
+              box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+              text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+          }
+
+          @keyframes pulse {
+              0% {
+                  transform: scale(1);
+              }
+              50% {
+                  transform: scale(1.05);
+              }
+              100% {
+                  transform: scale(1);
+              }
+          }
+
+          #startQuiz button:hover {
+              animation: none;
+              transform: translateY(-3px);
+              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+          }
+
+          #optionsContainer {
+              display: flex;
+              flex-direction: column;
+              gap: 0.75rem;
+              user-select: none;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+          }
+
+          #optionsContainer label {
+              display: flex;
+              align-items: flex-start;
+              margin-bottom: 0.75rem;
+              background: rgba(255, 255, 255, 0.9);
+              padding: 0.75rem;
+              border-radius: 0.5rem;
+              cursor: pointer;
+              border: 2px solid #e5e7eb;
+              transition: border-color 0.3s ease, background 0.3s ease;
+              word-break: break-word;
+              overflow-wrap: break-word;
+              max-width: 100%;
+              box-sizing: border-box;
+          }
+
+          #optionsContainer label:hover {
+              border-color: #ffffff;
+              background: linear-gradient(135deg, #f87171, #fbbf24, #34d399, #60a5fa, #a78bfa, #f472b6, #facc15);
+              background-size: 400% 400%;
+              animation: gradientFlow 12s ease infinite;
+          }
+
+          input[type="file"] {
+              margin: 1rem 0;
+              padding: 0.5rem;
+              border: 2px dashed #d1d5db;
+              border-radius: 0.5rem;
+              width: 100%;
+              background: #f9fafb;
+          }
+
+          .result {
+              margin-top: 2rem;
+              background: #ecfdf5;
+              padding: 1.5rem;
+              border-radius: 0.75rem;
+              border-left: 6px solid #10b981;
+          }
+
+          .correct {
+              color: #15803d;
+              font-weight: 600;
+          }
+
+          .wrong {
+              color: #dc2626;
+              font-weight: 600;
+          }
+
+          canvas#confetti {
+              position: fixed;
+              top: 0;
+              left: 0;
+              pointer-events: none;
+              width: 100vw;
+              height: 100vh;
+              z-index: 9999;
+          }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 100000; /* Tăng z-index của popup lên cao hơn overlay */
+            text-align: center;
+            max-width: 95%; /* Giữ max-width để rộng rãi */
+            width: 850px; /* Thử đặt một chiều rộng cố định hoặc tăng nhẹ */
+            max-height: 90vh; /* Tăng max-height lên 90% chiều cao viewport */
+            overflow-y: auto; /* Rất quan trọng: Thêm thanh cuộn dọc khi nội dung vượt quá */
+            transition: transform 0.3s ease;
+            box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+        }
+        
+       .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5); /* Nền bán trong suốt màu đen */
+        z-index: 99999; /* Z-index của overlay phải thấp hơn popup */
+    }
+       
+      
+
+          #timer {
+              text-align: center;
+              font-size: 1.25rem;
+              font-weight: 600;
+              margin-bottom: 1rem;
+              color: #1e40af;
+              transition: color 0.3s ease, background-color 0.3s ease;
+          }
+
+          #timer.warning {
+              color: #f59e0b;
+              background-color: #fef3c7;
+              padding: 0.5rem;
+              border-radius: 0.5rem;
+          }
+
+          #timer.critical {
+              color: #dc2626;
+              background-color: #fee2e2;
+              padding: 0.5rem;
+              border-radius: 0.5rem;
+              animation: blink 1s infinite;
+          }
+
+          @keyframes blink {
+              50% {
+                  opacity: 0.5;
+              }
+          }
+
+          .button-group-wrapper {
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              margin-top: 1.5rem;
+              align-items: center;
+          }
+
+          .button-row {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 0.75rem;
+              justify-content: center;
+          }
+
+          /* Đảm bảo input và button trong settingsPopup có đủ không gian */
+          #settingsPopup input[type="number"],
+          #settingsPopup .time-selection button {
+            padding: 0.75rem;
+            margin: 0.5rem 0; /* Giảm margin để gọn hơn */
+            border-radius: 0.5rem;
+            border: 2px solid #d1d5db;
+            width: 100%;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+          }
+
+          #settingsPopup input[type="number"]:focus {
+            border-color: #8b5cf6;
+            outline: none;
+          }
+
+          #settingsPopup .flex.flex-col.sm\:flex-row.gap-2.items-center {
+              flex-wrap: wrap; /* Cho phép các phần tử xuống dòng nếu không đủ chỗ */
+          }
+
+          #settingsPopup .flex.flex-col.sm\:flex-row.gap-2.items-center input {
+              flex-grow: 1; /* Cho phép input mở rộng */
+          }
+
+          .usage-guide {
+              background: #f3f4f6;
+              padding: 1rem;
+              border-radius: 0.5rem;
+              margin-top: 1rem;
+              font-size: 0.9rem;
+              line-height: 1.6;
+              color: #4b5563;
+              display: none;
+          }
+
+          .usage-guide.show {
+              display: block;
+          }
+
+          .usage-guide h3 {
+              font-weight: 600;
+              color: #1e40af;
+              margin-bottom: 0.5rem;
+          }
+
+          @media (max-width: 640px) {
+              .container {
+                  width: 100%;
+                  padding: 1rem;
+              }
+              #optionsContainer label {
+                  padding: 0.5rem;
+                  font-size: 0.9rem;
+              }
+              h2 {
+                  font-size: 1.5rem;
+              }
+              .button-group-wrapper {
+                  flex-direction: column;
+              }
+              .popup {
+                  width: 100%;
+              }
+          }
+
+          @media (min-width: 640px) {
+              .container {
+                  width: 100%;
+                  padding: 2rem;
+              }
+              h2 {
+                  font-size: 2.5rem;
+              }
+              .button-group-wrapper {
+                  flex-direction: row;
+                  justify-content: center;
+              }
+          }
+
+          @media (min-width: 1024px) {
+              .container {
+                  width: 100%;
+              }
+              .question-block {
+                  padding: 2rem;
+              }
+          }
+
+          @media (min-width: 1280px) {
+              .container {
+                  width: 100%;
+              }
+          }
+
+          #countdown {
+              display: none;
+              text-align: center;
+              font-size: 2rem;
+              font-weight: 700;
+              color: #ec4899;
+              margin-top: 1rem;
+              text-shadow: 0 0 10px rgba(236, 72, 153, 0.7);
+          }
+
+          .button-row button:hover {
+              background: linear-gradient(to right, #ef4444, #dc2626) !important;
+              color: white !important;
+          }
+
+          #progressBar {
+              display: none;
+          }
+
+          #progressBar.show {
+              display: block;
+          }
+
+          .timer-bar {
+              display: none;
+              width: 100%;
+              height: 20px;
+              background-color: #e0e0e0;
+              border-radius: 10px;
+              overflow: hidden;
+              margin-top: 10px;
+          }
+
+          .timer-progress {
+              height: 100%;
+              background-color: #4caf50;
+              width: 100%;
+              transition: width 1s linear, background-color 0.5s;
+          }
+
+          .timer-progress.warning {
+              background-color: #ffeb3b;
+          }
+
+          .timer-progress.danger {
+              background-color: #f44336;
+              animation: blink 0.5s infinite;
+          }
+
+          .timer-text {
+              margin-top: 5px;
+              font-weight: bold;
+              text-align: center;
+              color: #1e40af;
+          }
+
+          .violation-warning {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 100vh;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              z-index: 100000;
+              color: white;
+              font-size: 2rem;
+              font-weight: bold;
+              text-align: center;
+              text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+              padding: 2rem;
+          }
+            .settings-grid {
+                display: flex;
+                flex-direction: column; /* Mặc định là xếp chồng trên màn hình nhỏ */
+                gap: 1.5rem; /* Khoảng cách giữa các cột */
+            }
+
+            .settings-column {
+                flex: 1; /* Cho phép các cột mở rộng bằng nhau */
+            }
+
+            @media (min-width: 768px) { /* Áp dụng từ màn hình tablet trở lên (md breakpoint của Tailwind) */
+                .settings-grid {
+                    flex-direction: row; /* Chuyển sang bố cục hàng ngang trên màn hình lớn */
+                }
+            }
+        </style>
+      </head>
+
+  <body ondragstart="return false;">
+    <canvas id="confetti"></canvas>
+    <div class="container">
+      <h2>🌟 Trắc Nghiệm 🌟</h2>
+
+      <input type="file" id="upload" accept=".docx" />
+      <div id="startQuiz" class="text-center mt-4" style="display:none;">
+        <button onclick="showSettingsPopup()">🎯 Bắt đầu Trắc Nghiệm</button>
+      </div>
+      <div id="countdown"></div>
+
+      <div id="timer"></div>
+      <div id="timer-container" class="timer-bar">
+        <div class="timer-progress" id="timer-progress"></div>
+      </div>
+      <div class="timer-text" id="timer-text" style="display: none;"></div>
+      <div id="quizContainer" class="question-block">
+        <div id="questionText" class="text-lg font-semibold mb-4"></div>
+        <div id="optionsContainer" class="space-y-3"></div>
+        <div class="flex justify-between items-center mt-6 flex-wrap gap-3">
+          <div class="flex gap-3">
+            <button onclick="prevQuestion()">⬅️ Quay lại</button>
+            <button onclick="nextQuestion()">➡️ Tiếp theo</button>
+          </div>
+          <button onclick="submitQuiz()">Nộp bài</button>
+        </div>
+      </div>
+
+      <div
+        id="progressBar"
+        class="mt-6 font-semibold text-center text-lg text-gray-700"
+      >
+        0 / 0 câu đã làm
+      </div>
+      <div class="button-group-wrapper">
+        <div class="button-row" id="extraButtons">
+          <button onclick="window.location.href='chuyendoi.html'">
+            Chuẩn hóa câu hỏi
+          </button>
+           <button onclick="window.location.href='kiemtra.html'">
+           Trang chủ
+         </button>
+          <button id="clearFileBtn" style="display:none;" onclick="clearFile()">
+            🗑️ Xóa file
+          </button>
+        </div>
+      </div>
+
+      <div class="usage-guide" id="usageGuide">
+        <h3>Hướng dẫn sử dụng:</h3>
+        <ul class="list-disc pl-5">
+          <li>
+            <strong>Lưu ý:</strong> Đáp án đúng cần
+            <strong>in đậm</strong> trong file Word.
+          </li>
+          <li>Định dạng câu hỏi: <code>1.</code> hoặc <code>1)</code></li>
+          <li>
+            Định dạng câu trả lời: <code>a.</code> hoặc <code>a)</code> hoặc
+            <code>A.</code> hoặc <code>A)</code>
+          </li>
+          <li>
+            Hoặc ấn vào "Chuẩn hóa câu hỏi" để làm chuẩn câu hỏi và đáp án.
+          </li>
+          <li>Tải file Word (.docx) với câu hỏi và đáp án đúng in đậm.</li>
+          <li>Chọn thang điểm từ (1-10) sau khi tải file.</li>
+          <li>
+            Chọn chế độ thời gian: "Không giới hạn" hoặc nhập số phút và nhấn
+            "Xác nhận".
+          </li>
+          <li>Làm bài thi, chọn đáp án cho mỗi câu.</li>
+          <li>
+            Thời gian sẽ đổi màu khi gần hết giờ: vàng ( < 5 phút), đỏ nhấp nháy
+            (< 1 phút).
+          </li>
+          <li>Nộp bài thủ công hoặc tự động khi hết thời gian.</li>
+          <li>Sử dụng các nút bổ sung để chuẩn hóa hoặc so sánh file/đoạn.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <div id="popupMessage" class="text-lg font-medium"></div>
+        <div id="popupButtons" class="mt-4"></div>
+    </div>
+    <div class="popup" id="settingsPopup">
+        <form onsubmit="return false;">
+          <h3 class="text-2xl font-bold mb-4 text-center text-indigo-700">Cài đặt bài thi</h3>
+
+          <div class="settings-grid">
+            <div class="settings-column">
+              <div class="mb-6">
+                <div id="scalePopupMessage" class="text-lg font-medium mb-2 text-left">
+                  Nhập thang điểm (1-10):
+                </div>
+                <input
+    type="number"
+    id="scaleInput"
+    min="1"
+    max="10"
+    step="0.1"
+    placeholder="Thang điểm"
+    required
+    class="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+    oninput="toggleConfirmButton()"
+/>
+              </div>
+            </div>
+
+            <div class="settings-column">
+              <div class="mb-6">
+                <div id="timePopupMessage" class="text-lg font-medium mb-2 text-left">
+                  Chọn chế độ thời gian:
+                </div>
+                <ul class="mt-2 space-y-2">
+                  <li>
+                  <button
+                    type="button"
+                    onclick="selectTimeMode('free')"
+                    class="w-full text-left p-3 bg-green-100 hover:bg-green-200 rounded-lg shadow-sm transition duration-200 ease-in-out text-green-800 font-semibold"
+                    oninput="toggleConfirmButton()" // ADD THIS LINE
+                  >
+                    1. Không giới hạn
+                  </button>
+                </li>
+                
+                  <li>
+                    <div class="flex flex-col sm:flex-row gap-2 items-center">
+                      <button
+                        type="button"
+                        id="limitedModeBtn"
+                        class="w-full sm:w-3/4 p-3 bg-blue-100 hover:bg-blue-200 rounded-lg shadow-sm transition duration-200 ease-in-out text-blue-800 font-semibold"
+                        onclick="document.getElementById('timeInput').focus()"
+                      >
+                        2. Nhập số phút
+                      </button>
+                      <input
+                        type="number"
+                        id="timeInput"
+                        min="1"
+                        placeholder="Phút"
+                        required
+                        class="w-full sm:w-1/4 p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+                        oninput="toggleConfirmButton()"
+                      />
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <button
+                type="button"
+                id="confirmSettingsBtn"
+                class="w-full p-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                onclick="applySettings()"
+                disabled
+              >
+                Xác nhận
+              </button>
+            </div>
+          </div>
+          </form>
+    </div>    
+    <script src="tracnghiem.js"></script>
+  </body>
+</html>

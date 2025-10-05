@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tính Điểm Tích Lũy ĐH Duy Tân</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="tinhdiemdtu.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Tính Điểm Tích Lũy - Đại học Duy Tân</h1>
+    </header>
+
+    <main class="container">
+      <div class="switch-buttons">
+        <button class="btn" onclick="showInputPage()">
+          Nhập điểm & tải file
+        </button>
+        <button class="btn" onclick="showFastInputPage()">
+          Xếp Loại học lực
+        </button>
+      </div>
+
+      <section id="input-page">
+        <h2>Nhập Điểm Các Học Phần</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Mã Lớp</th>
+                <th>Số ĐVHT</th>
+                <th>Điểm gốc</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="subjects">
+              <tr>
+                <td><input type="text" placeholder="Mã lớp học" /></td>
+                <td>
+                  <input
+                    type="number"
+                    id="fastAvg10"
+                    step="0.01"
+                    placeholder="Điểm 10"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    id="fastAvg4"
+                    step="0.01"
+                    placeholder="Điểm 4"
+                  />
+                </td>
+                <td>
+                  <button class="btn delete-btn" onclick="deleteRow(this)">
+                    Xóa
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="button-group">
+          <button class="btn add-btn" onclick="addRow()">+ Thêm Môn</button>
+          <button class="btn clear-btn" onclick="clearAllRows()">
+            Xóa Tất Cả
+          </button>
+          <label class="btn upload-btn">
+            Upload Files
+            <input
+              type="file"
+              id="fileInput"
+              accept=".xls,.xlsx"
+              class="hidden"
+            />
+          </label>
+          <button class="btn calculate-btn" onclick="calculate()">
+            Xem Kết Quả
+          </button>
+          <a href="huongdan.html" class="btn instruction-btn">
+            Hướng Dẫn Upload Files
+          </a>
+        </div>
+      </section>
+
+      <section id="fast-input-page" class="hidden">
+        <h2>Xếp loại học lực đối với sinh viên năm cuối</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Tổng số Đơn vị Học tập (ĐVHT) toàn Khóa học</th>
+                <th>Trung bình Điểm gốc toàn Khóa học</th>
+                <th>Điểm Trung bình Tích lũy toàn Khóa học</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    type="number"
+                    id="fastTotalCredits"
+                    placeholder="Số tín chỉ"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    id="fastAvg10"
+                    step="0.01"
+                    min="0.01"
+                    max="10"
+                    placeholder="Điểm 10"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    id="fastAvg4"
+                    step="0.01"
+                    min="0.01"
+                    max="4"
+                    placeholder="Điểm 4"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="button-group">
+          <button class="btn calculate-btn" onclick="fastCalculate()">
+            Xem Kết Quả
+          </button>
+          <button class="btn clear-btn" onclick="fastClear()">Xóa</button>
+        </div>
+      </section>
+
+      <section id="result-page" class="hidden">
+        <div class="result-card">
+          <h2>KẾT QUẢ</h2>
+          <div class="result-box">
+            <h3 id="totalCredits"></h3>
+            <h3 id="avg10"></h3>
+            <h3 id="avg4"></h3>
+            <h3 id="rank"></h3>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="custom-modal" class="modal">
+      <div class="modal-content">
+        <p id="modal-message"></p>
+        <div class="modal-buttons">
+          <button id="modal-cancel-btn" class="btn modal-btn cancel-btn">
+            Hủy
+          </button>
+          <button id="modal-confirm-btn" class="btn modal-btn confirm-btn">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="tinhdiemdtu.js"></script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập</title>
+    <link rel="icon" href="logo.png" />
+    <link rel="stylesheet" href="dangnhap.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Đăng nhập</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Tên người dùng (Email):</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Nhập email của bạn"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Nhập mật khẩu của bạn"
+            required
+          />
+        </div>
+
+        <!-- CAPTCHA -->
+        <div class="form-group">
+          <div class="captcha-container">
+            <canvas id="captchaCanvas"></canvas>
+            <button type="button" id="refreshCaptcha" title="Làm mới">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6c0 1.01-.25 1.96-.7 2.8l1.46 1.46A7.932 7.932 0 0 0 20 12c0-4.42-3.58-8-8-8m-6.76.24L3.5 6.99A7.932 7.932 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4l-4-4v3c-3.31 0-6-2.69-6-6c0-1.01.25-1.96.7-2.8z"
+                />
+              </svg>
+            </button>
+          </div>
+          <input
+            type="text"
+            id="captchaInput"
+            placeholder="Nhập mã captcha"
+            required
+          />
+        </div>
+        <button type="submit">Đăng nhập</button>
+        <!--  <p class="message">Chưa có tài khoản? <a href="dangky.html">Đăng ký ngay</a></p>   -->
+        <p class="message">
+          Quên mật khẩu? <a href="#" id="resetPasswordLink">Đặt lại tại đây</a>
+        </p>
+        <p id="loginMessage" class="error-message"></p>
+      </form>
+    </div>
+    <script src="dangnhap.js" type="module"></script>
+  </body>
+</html>

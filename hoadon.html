@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Hóa đơn thanh toán cho Cửa Hàng Nhật Tân - Tạo và in hóa đơn nhanh chóng, dễ dàng."
+    />
+    <meta
+      name="keywords"
+      content="hóa đơn, thanh toán, cửa hàng Nhật Tân, in hóa đơn, quản lý hóa đơn"
+    />
+    <meta name="author" content="Cửa Hàng Nhật Tân" />
+    <meta name="robots" content="index, follow" />
+    <title>Hóa Đơn - Cửa Hàng Nhật Tân</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        body {
+          background: #c5fbdc;
+        }
+        .invoice-container {
+          box-shadow: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-sans text-gray-800">
+    <div class="container mx-auto p-4 max-w-3xl">
+      <header class="no-print mb-8">
+        <h1 class="text-3xl font-bold text-center text-indigo-600">
+          📝 Tạo Hóa Đơn Thanh Toán
+        </h1>
+        <p class="text-center text-gray-600 mt-2">
+          Nhập thông tin hóa đơn một cách dễ dàng và in ngay!
+        </p>
+      </header>
+
+      <section class="no-print bg-white p-6 rounded-lg shadow-md mb-8">
+        <div class="mb-4">
+          <label
+            for="customerName"
+            class="block text-sm font-medium text-gray-700"
+            >Họ tên khách hàng:</label
+          >
+          <input
+            type="text"
+            id="customerName"
+            placeholder="Nguyễn Văn A"
+            class="mt-1 w-full p-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+          />
+        </div>
+
+        <table id="inputTable" class="w-full border-collapse">
+          <thead>
+            <tr class="bg-indigo-100">
+              <th class="p-3 text-left">Sản phẩm</th>
+              <th class="p-3 text-left">Số lượng</th>
+              <th class="p-3 text-left">Đơn giá</th>
+              <th class="p-3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="input-row border-b">
+              <td class="p-3">
+                <input
+                  type="text"
+                  placeholder="Tên sản phẩm"
+                  class="w-full p-2 border rounded-md"
+                />
+              </td>
+              <td class="p-3">
+                <input
+                  type="number"
+                  placeholder="1"
+                  min="1"
+                  class="w-full p-2 border rounded-md"
+                />
+              </td>
+              <td class="p-3">
+                <input
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  class="w-full p-2 border rounded-md"
+                />
+              </td>
+              <td class="p-3">
+                <button
+                  class="delete-btn bg-red-500 text-white p-2 rounded-md hover:bg-red-600"
+                  onclick="deleteRow(this)"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="flex justify-between mt-4">
+          <button
+            class="btn bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+            onclick="addRow()"
+          >
+            + Thêm dòng
+          </button>
+          <button
+            class="btn bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+            onclick="generateInvoice()"
+          >
+            Tạo hóa đơn
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="invoice-container bg-white p-6 rounded-lg shadow-lg hidden"
+        id="invoice"
+      >
+        <header class="text-center mb-4">
+          <h2 class="text-2xl font-bold text-indigo-600">
+            ☕ Cửa Hàng Nhật Tân
+          </h2>
+          <h3 class="text-xl font-semibold">HÓA ĐƠN THANH TOÁN</h3>
+        </header>
+        <div class="mb-4">
+          <p><strong>Khách hàng:</strong> <span id="nameDisplay"></span></p>
+          <p><strong>Ngày giờ:</strong> <span id="dateTime"></span></p>
+        </div>
+
+        <table id="invoiceTable" class="w-full border-collapse">
+          <thead>
+            <tr class="bg-indigo-100">
+              <th class="p-3 text-left">Sản phẩm</th>
+              <th class="p-3 text-left">SL</th>
+              <th class="p-3 text-left">Đơn giá</th>
+              <th class="p-3 text-left">Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <p class="total text-right font-bold mt-4">
+          Tổng cộng: <span id="totalAmount"></span>đ
+        </p>
+
+        <footer class="text-center text-sm text-gray-600 mt-6">
+          Cảm ơn quý khách!<br />
+          Hotline: 0559.123*###
+        </footer>
+      </section>
+
+      <div class="no-print text-center mt-8">
+        <button
+          class="btn bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900"
+          onclick="window.print()"
+        >
+          <i class="fas fa-print"></i> In hóa đơn
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function addRow() {
+        const tableBody = document.querySelector("#inputTable tbody");
+        const row = document.createElement("tr");
+        row.classList.add("input-row", "border-b");
+        row.innerHTML = `
+        <td class="p-3"><input type="text" placeholder="Tên sản phẩm" class="w-full p-2 border rounded-md"></td>
+        <td class="p-3"><input type="number" placeholder="1" min="1" class="w-full p-2 border rounded-md"></td>
+        <td class="p-3"><input type="number" placeholder="0" min="0" class="w-full p-2 border rounded-md"></td>
+        <td class="p-3"><button class="delete-btn bg-red-500 text-white p-2 rounded-md hover:bg-red-600" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button></td>
+      `;
+        tableBody.appendChild(row);
+      }
+
+      function deleteRow(btn) {
+        const row = btn.closest("tr");
+        row.remove();
+      }
+
+      function generateInvoice() {
+        const invoice = document.getElementById("invoice");
+        const tbody = document.querySelector("#invoiceTable tbody");
+        const name =
+          document.getElementById("customerName").value || "Khách không tên";
+        const now = new Date();
+        const dateStr = now.toLocaleString("vi-VN");
+
+        tbody.innerHTML = "";
+        let total = 0;
+
+        const rows = document.querySelectorAll("#inputTable tbody tr");
+        rows.forEach((row) => {
+          const inputs = row.querySelectorAll("input");
+          const productName = inputs[0].value.trim();
+          const qty = parseInt(inputs[1].value) || 0;
+          const price = parseInt(inputs[2].value) || 0;
+
+          if (!productName || qty <= 0 || price < 0) return;
+
+          const amount = qty * price;
+          total += amount;
+
+          const tr = document.createElement("tr");
+          tr.classList.add("border-b");
+          tr.innerHTML = `
+          <td class="p-3">${productName}</td>
+          <td class="p-3">${qty}</td>
+          <td class="p-3">${price.toLocaleString()}đ</td>
+          <td class="p-3">${amount.toLocaleString()}đ</td>
+        `;
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById("nameDisplay").innerText = name;
+        document.getElementById("dateTime").innerText = dateStr;
+        document.getElementById("totalAmount").innerText =
+          total.toLocaleString();
+
+        invoice.classList.remove("hidden");
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    </script>
+  </body>
+</html>

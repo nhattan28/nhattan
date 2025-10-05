@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tân</title>
+    <link rel="icon" href="logo.png"/>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .layout {
+            display: flex;
+            height: 100%;
+            position: relative;
+        }
+        .sidebar {
+            width: auto;
+            background-color: #f6eadc;
+            color: black;
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+            z-index: 1001;
+            position: fixed;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+        .sidebar.show {
+            transform: translateX(0);
+        }
+        .sidebar button {
+            padding: 12px 12px;
+            background: none;
+            border: none;
+            text-align: left;
+            color: black;
+            font-size: 15px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .sidebar button:hover {
+            background-color: #aff8e2;
+            color: red;
+        }
+        .sidebar button.active {
+            background-color: #e6f9f4;
+            color: red;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+        .sidebar details {
+            padding: 8px 10px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        .sidebar details.active-parent > summary {
+            color: red;
+            font-weight: bold;
+            background-color: #fff0f0;
+            border-radius: 6px;
+            padding: 8px 10px;
+        }
+        .sidebar details {
+            display: block;
+        }
+        .sidebar details > button {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: none;
+        }
+        .overlay.show {
+            display: block;
+        }
+        .content {
+            flex-grow: 1;
+            width: 100%;
+            margin-left: 0;
+            height: 100%;
+        }
+        .clock-container {
+            text-align: center;
+            margin: 8px 0;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .clock {
+            font-size: 15px;
+            color: black;
+            margin-right: 10px;
+        }
+        .date {
+            font-size: 15px;
+            color: black;
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: red;
+            font-size: 20px;
+            padding: 5px 20px;
+            cursor: pointer;
+            z-index: 1002;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+        }
+        .toggle-btn.hide {
+            display: none;
+            font-size: 2px;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #search-input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px auto;
+            display: block;
+            box-sizing: border-box;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .logout-btn {
+            position: sticky;
+            bottom: 0;
+            margin-top: auto;
+            background-color: #ff6347;
+            color: white;
+            font-weight: bold;
+            border-radius: 0;
+        }
+        .logout-btn:hover {
+            background-color: #e55333;
+        }
+
+        @keyframes rainbowBorder {
+        0% { border-color: #ff0000; } 
+        14% { border-color: #ff7f00; } 
+        28% { border-color: #ffff00; } 
+        42% { border-color: #00ff00; } 
+        56% { border-color: #0000ff; } 
+        70% { border-color: #4b0082; } 
+        84% { border-color: #9400d3; } 
+        100% { border-color: #ff0000; } 
+        }
+
+        @keyframes rainbowGlow {
+        0% { box-shadow: 0 0 5px #ff0000; }
+        14% { box-shadow: 0 0 5px #ff7f00; }
+        28% { box-shadow: 0 0 5px #ffff00; }
+        42% { box-shadow: 0 0 5px #00ff00; }
+        56% { box-shadow: 0 0 5px #0000ff; }
+        70% { box-shadow: 0 0 5px #4b0082; }
+        84% { box-shadow: 0 0 5px #9400d3; }
+        100% { box-shadow: 0 0 5px #ff0000; }
+        }
+
+        #btnAI {
+        position: fixed;
+        top: 0.1cm;
+        right: 0.2cm;
+        z-index: 1000;
+        
+        background-color: rgba(0, 0, 0, 0);
+        color: red;
+        font-weight: bold;
+        padding: 5px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.1s ease;
+        
+        border: 2px solid transparent;
+
+        animation: 
+            rainbowBorder 8s linear infinite, 
+            rainbowGlow 8s linear infinite;   
+        }
+
+        #btnAI:hover {
+        background-color: #0f0; 
+        color: #000;
+        box-shadow: 0 0 8px #0f0, 0 0 15px #0f0; 
+        animation: none; 
+        border-color: #0f0;
+        }
+
+    </style>
+    </head>
+    <body>
+    <div class="clock-container">
+        <div class="clock" id="clock">--:--:--</div>
+        <div class="date" id="date">Đang tải ngày...</div>
+        <button id="btnAI" class="custom-button">AI</button>
+    </div>
+    
+    <button class="toggle-btn" id="toggleBtn" onclick="showSidebar()">☰</button>
+    <div class="overlay" id="overlay" onclick="hideSidebar()"></div>
+    <div class="layout">
+        <div class="sidebar" id="sidebar">
+            <input type="text" id="search-input" placeholder="Tìm kiếm..." oninput="filterMenu()">
+            <button onclick="loadPage(event, 'website2.html')">🏠 Trang chủ</button>
+            <button onclick="loadPage(event, 'lienhe.html')">📞 Liên hệ</button>           
+            <details>
+                <summary>📝 Kiểm tra</summary>
+                <button onclick="loadPage(event, 'kiemtra.html')">Bài kiểm tra & Câu đố</button>
+                <button onclick="loadPage(event, 'kiemtratuvung.html')">Kiểm tra từ vựng</button>
+            </details>           
+            <details>
+                <summary>📚 Học tập</summary>
+                <button onclick="loadPage(event, 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR82IjSr1ilXkONrDOZQ3FkXtaJ0b5n1dfBWs3iWZjKjStL13jXP0QpywwEjonUt8SDFmoBlkelgq3Y/pubhtml')">Lịch thi</button>
+                <button onclick="loadPage(event, 'tailieu.html')">Tài liệu</button>
+                <button onclick="loadPage(event, 'taifile.html')">Tải file</button>
+                <button onclick="loadPage(event, 'sosanh.html')">So sánh</button>              
+                <button onclick="loadPage(event, 'chonngaunhien.html')">Ngẫu nhiên</button>
+                <button onclick="window.location.href='https://transfer.it/start';">Gửi file</button>
+                <button onclick="loadPage(event, 'chuyenthanhchu.html')">Chuyển ảnh thành văn bản</buton>
+            </details>
+            <details>
+                <summary>🔧 Lập trình</summary>
+                <button onclick="loadPage(event, 'lamdepcode.html')">Làm đẹp code</button>
+                <button onclick="loadPage(event, 'https://onecompiler.com/')">Code</button>
+                <button onclick="loadPage(event, 'Taotxt.html')">Notepad</button>
+            </details>
+            <details>
+                <summary>🩺 Sức khỏe</summary>
+                <button onclick="loadPage(event, 'https://nhattan28.github.io/chukykinhnguyet/')">Chu kỳ</button>
+                <button onclick="loadPage(event, 'hosocanhan.html')">Hồ sơ</button>
+            </details>
+            <details>
+                <summary>🔍 Xác thực</summary>
+                <button onclick="loadPage(event, 'kiemtrawebsite.html')">Test Website</button>
+                <button onclick="window.location.href='https://by.com.vn/'">Rút gọn</button>
+                <button onclick="loadPage(event, 'MaQR.html')">Tạo QR</button>                
+                <button onclick="loadPage(event, 'hanggia.html')">Hàng giả</button>
+                <button onclick="loadPage(event, 'hoadon.html')">Hóa đơn</button>
+                <button onclick="loadPage(event, 'tinhthanh.html')">Tỉnh thành</button>
+                <button onclick="window.location.href='https://chongluadao.vn/'">Chống lừa đảo</button>
+            </details>
+            <details>
+                <summary>🧰 Khác</summary>
+                <button onclick="loadPage(event, 'tienich.html')">Tiện ích</button>
+                <button onclick="loadPage(event, 'cameradanang.html')">Camera Đà Nẵng</button>
+                <button onclick="loadPage(event, 'https://tcc-agency.com/tiktok-download/')">Tải Tiktok</button>
+                <button onclick="loadPage(event, 'demnguoc.html')">Đếm ngược</button>
+                <button onclick="loadPage(event, 'tinhtuoi.html')">Tính tuổi</button>
+            </details>
+            <details>
+                <summary>📊 Giá cả</summary>
+                <button onclick="loadPage(event, 'https://giacaphe.com/gia-ca-phe-dak-nong/')">Giá cà phê</button>
+                <button onclick="loadPage(event, 'https://giacaphe.com/gia-tieu-hom-nay/')">Giá tiêu</button>
+            </details>
+            <details>
+                <summary>🎵 Giải trí</summary>
+                <button onclick="loadPage(event, 'timbaihat.html')">Tìm bài hát</button>
+                <button onclick="loadPage(event, 'bao.html')">Đọc báo</button>
+                <button onclick="loadPage(event, 'youtube.html')">Youtube</button>
+                <button onclick="loadPage(event, 'https://docs.google.com/spreadsheets/d/18dw8kwvXfVeR0MnPEAk9lLAYmzYk-13eRuXbg5S7Fyg/edit?usp=sharing')">Game nối chữ</button>
+                <button onclick="loadPage(event, 'game_xo.html')">Game X-O</button>
+                <button onclick="loadPage(event, 'game_do_min.html')">Game dò mìn</button>
+            </details>
+            <details>
+                <summary>🎓 Trường</summary>
+                <button onclick="loadPage(event, 'thoikhoabieu.html')">Thời khóa biểu</button>
+                <button onclick="loadPage(event, 'timmonthi.html')">Tìm môn thi</button>
+                <button onclick="window.open('https://mydtu.duytan.edu.vn/Signin.aspx', '_blank')">Mydtu</button>
+                <button onclick="window.location.href='https://pdaotao.duytan.edu.vn/home/Default.aspx?lang=VN'">Phòng đào tạo</button>
+                <button onclick="window.open('https://courses.duytan.edu.vn/sites/Home_ChuongTrinhDaoTao.aspx?p=home_coursesearch', '_blank')">Tra môn học</button>
+                <button onclick="window.location.href='https://kcntt.duytan.edu.vn/'">Khoa CNTT</button>
+                <button onclick="window.location.href='https://gdtcqp.duytan.edu.vn/'">TT GDTC</button>
+                <button onclick="loadPage(event, 'dtumaps.html')">Vị trí</button>
+                <button onclick="loadPage(event, 'tinhdiemdtu.html')">Tính điểm DTU</button>
+                <button onclick="loadPage(event, 'anhsv.html')">Ảnh SV DTU</button>
+            </details>
+            <button id="signOutButton" class="logout-btn">Đăng xuất</button>
+        </div>
+        <div class="content">
+            <iframe id="iframeView" src="website2.html"></iframe>
+        </div>
+        <div id="aiPopup" style="display:none;position:fixed;bottom:30px;right:30px;background:#1a1a1a;color:#f0f0f0;border-radius:18px;box-shadow:0 0 40px rgba(0,255,0,0.5);z-index:9999;width:400px;max-width:98vw;padding:25px;font-size:1rem;border: 1px solid #0f0;">
+        <button id="toggleSizeBtn" onclick="toggleAIPopupMaximize()" style="position:absolute;top:10px;left:12px;z-index:10001;background:transparent;border:2px solid #f00;width:22px;height:22px;border-radius:5px;color:#f00;font-size:16px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">⛶</button>
+        <button onclick="closeAIPopup()" style="position:absolute;top:10px;right:15px;background:transparent;color:#f0f0f0;font-size:24px;border:none;cursor:pointer;padding: 5px;">×</button>
+        <h2 style="margin-bottom:10px;color:#0f0;font-size:1rem;border-bottom: 1px solid #333; padding-bottom: 1px; text-align: center;">🤖</h2>
+        <div style="display:flex; align-items:center; gap: 8px; margin-bottom: 15px;">
+        <input type="text" id="aiInput" placeholder="Nhập câu hỏi..." style="flex-grow: 1; padding:10px; border-radius:10px; border: 1px solid #0f0; background: #2a2a2a; color: #f0f0f0; font-size: 1em;" autocomplete="off">
+        
+        <button onclick="sendAIMessage()" style="font-weight:bold; padding:10px 15px; border-radius:10px; background-color: #0f0; color: #1a1a1a; border: none; cursor: pointer; transition: background 0.2s;">Gửi</button>
+        
+        <button onclick="clearChatHistory()" style="font-weight:bold; padding:10px; border-radius:10px; background-color: red; color: #f0f0f0; border: none; cursor: pointer; font-size: 0.9em; transition: background 0.2s;">Xóa</button>
+        </div>
+    
+        <div id="aiMessages" style="max-height:200px;overflow-y:auto; padding-top:10px; border-top: 1px dashed #333; padding-right: 5px;">
+        <div style="color: #666; font-style: italic; font-size: 0.9em;text-align: center;">Bắt đầu trò chuyện với AI của bạn.</div>
+        </div>
+        </div>
+        <script type="module" src="index.js"></script>
+        </body>
+        </html>

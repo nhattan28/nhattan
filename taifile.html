@@ -1,0 +1,27 @@
+<!DOCTYPE -html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tải File</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="taifile.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tải File</h1>
+      <div id="drop-zone" class="drop-zone">
+        <p>Kéo và thả tệp vào đây</p>
+        <p>hoặc</p>
+        <input type="file" id="fileInput" multiple />
+        <label for="fileInput" class="browse-btn">Chọn tệp</label>
+      </div>
+      <div id="loading" class="loading" style="display: none">
+        <div class="spinner"></div>
+        <p>Đang tải lên...</p>
+      </div>
+      <ul id="resultList"></ul>
+    </div>
+    <script src="auth.js"></script>
+    <script src="taifile.js"></script>
+  </body>
+</html>

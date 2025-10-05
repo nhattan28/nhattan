@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>So sánh</title>
+    <link rel="stylesheet" href="sosanh.css" />
+  </head>
+  <body>
+    <h2>So sánh file</h2>
+    <div class="top-bar">
+      <input type="file" id="fileInput" multiple />
+      <span id="fileCount">0 tệp</span>
+      <button onclick="clearFiles()">Xóa file</button>
+      <button onclick="window.location.href='sosanh.html'">Trang chủ</button>
+      <button onclick="toggleDifferences(true)">Chỉ hiển thị khác biệt</button>
+      <button onclick="toggleDifferences(false)">Hiển thị tất cả</button>
+      <button onclick="window.location.href='sosanhdoan.html'">
+        So sánh đoạn
+      </button>
+    </div>
+    <div id="fileContainers"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <script src="sosanhfile.js"></script>
+  </body>
+</html>

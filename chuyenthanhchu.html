@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chuyển</title>
+    <link rel="stylesheet" href="chuyenthanhchu.css" />
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hình ảnh -> văn bản</h1>
+      <div class="input-area" id="drop-area">
+        <div class="file-controls">
+          <label for="file-input" class="file-input-btn-label">
+            <button type="button" class="file-input-btn">Chọn tệp</button>
+            <input
+              type="file"
+              id="file-input"
+              class="hidden-input"
+              multiple
+              accept="image/*"
+            />
+          </label>
+          <button
+            type="button"
+            class="clear-all-btn"
+            id="clear-all-btn"
+            style="display: none"
+          >
+            Xóa tất cả
+          </button>
+        </div>
+        <span class="drag-text">Hoặc kéo thả ảnh vào đây</span>
+      </div>
+
+      <div class="results-section" id="results-container"></div>
+    </div>
+
+    <button id="scroll-up-btn" class="scroll-btn">⬆️</button>
+    <button id="scroll-down-btn" class="scroll-btn">⬇️</button>
+    <script src="chuyenthanhchu.js"></script>
+  </body>
+</html>

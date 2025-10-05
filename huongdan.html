@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hướng Dẫn - Tính Điểm Tích Lũy</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Liên kết đến file CSS hiện có để đảm bảo giao diện đồng bộ -->
+    <link rel="stylesheet" href="tinhdiemdtu.css" />
+    <style>
+      /* Thêm CSS cho trang hướng dẫn nếu cần */
+      .instruction-section {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+      .instruction-section h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .instruction-section ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+      }
+      .instruction-section li {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+      .instruction-section p {
+        margin-top: 1rem;
+        font-weight: 500;
+      }
+      .table-format {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+      .table-format th,
+      .table-format td {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        text-align: center;
+      }
+      .table-format th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+      .back-btn-wrapper {
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      /* Thêm CSS để bảng cuộn được trên màn hình nhỏ */
+      .table-container-responsive {
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Hướng Dẫn Tải File - Đại học Duy Tân</h1>
+    </header>
+
+    <main class="container">
+      <section class="instruction-section">
+        <h2>Định Dạng File Excel</h2>
+        <p>
+          Để trang website có thể đọc dữ liệu chính xác, file Excel của bạn phải
+          có tối thiểu ba cột với các tiêu đề sau: Mã Lớp, Số ĐVHT, Điểm gốc.
+        </p>
+        <div class="table-container-responsive">
+          <table class="table-format">
+            <thead>
+              <tr>
+                <th>Mã Môn</th>
+                <th>Mã Lớp</th>
+                <th>Hình thức</th>
+                <th>Tên Môn</th>
+                <th>Số ĐVHT</th>
+                <th>Loại ĐVHT</th>
+                <th>Điểm gốc</th>
+                <th>Điểm chữ</th>
+                <th>Điểm Quy đổi</th>
+                <th>Điểm tích lũy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CS 201</td>
+                <td>CS 201 AK1</td>
+                <td>LEC</td>
+                <td>Tin Học Ứng Dụng</td>
+                <td>2</td>
+                <td>Tín Chỉ</td>
+                <td>8.50</td>
+                <td>A</td>
+                <td>4.00</td>
+                <td>8.00</td>
+              </tr>
+              <tr>
+                <td>HIS 362</td>
+                <td>HIS 362 AF</td>
+                <td>LEC</td>
+                <td>Lịch Sử Đảng Cộng Sản Việt Nam</td>
+                <td>2</td>
+                <td>Tín Chỉ</td>
+                <td>8.80</td>
+                <td>A</td>
+                <td>4.00</td>
+                <td>8.00</td>
+              </tr>
+              <tr>
+                <td>DTE-IT 102</td>
+                <td>DTE-IT 102 A</td>
+                <td>LEC</td>
+                <td>Hướng Nghiệp 1</td>
+                <td>1</td>
+                <td>Tín Chỉ</td>
+                <td>8.9</td>
+                <td>A</td>
+                <td>4.00</td>
+                <td>4.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Lưu ý: Bạn có thể đặt các cột này ở bất kỳ vị trí nào trong file
+          Excel, nhưng tiêu đề phải chính xác để trang website nhận diện được.
+        </p>
+      </section>
+
+      <div class="back-btn-wrapper">
+        <a href="tinhdiemdtu.html" class="btn back-btn"
+          >⬅️ Quay lại trang tính điểm</a
+        >
+      </div>
+    </main>
+  </body>
+</html>

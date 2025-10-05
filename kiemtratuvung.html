@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kiểm Tra</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="kiemtratuvung.css" />
+  </head>
+  <body>
+    <div id="custom-alert-overlay" style="display: none">
+      <div id="custom-alert-box">
+        <div id="alert-message"></div>
+        <button id="alert-close-btn">Đã rõ!</button>
+      </div>
+    </div>
+    <div id="upload-section">
+      <h2>Kiểm tra từ vựng</h2>
+      <input type="file" id="file-input" accept=".txt" />
+      <button onclick="parseFile()">Bắt đầu kiểm tra</button>
+      <div id="vocab-table"></div>
+    </div>
+
+    <div id="test-section" style="display: none">
+      <div class="quiz-header">
+        <span id="progress"></span>
+      </div>
+      <div id="question-area"></div>
+      <input type="text" id="answer-input" autocomplete="off" />
+      <button type="button" id="back-btn" onclick="prevQuestion()">
+        Quay lại
+      </button>
+      <button type="button" id="submit-btn" onclick="submitAnswer()">
+        Trả lời
+      </button>
+    </div>
+
+    <div id="result-section" style="display: none">
+      <h2>Kết quả kiểm tra</h2>
+      <div id="result-area"></div>
+      <div id="score-area"></div>
+      <button onclick="restartQuiz()">Làm lại</button>
+    </div>
+    <script src="kiemtratuvung.js"></script>
+  </body>
+</html>

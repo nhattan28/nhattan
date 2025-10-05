@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Tìm kiếm bài hát yêu thích qua lời bài hát trên YouTube một cách nhanh chóng và dễ dàng."
+    />
+    <meta
+      name="keywords"
+      content="tìm bài hát, lời bài hát, YouTube, tìm kiếm bài hát, nhạc Việt"
+    />
+    <meta name="author" content="Your Name" />
+    <meta property="og:title" content="Tìm Bài Hát Qua Lời | YouTube Search" />
+    <meta
+      property="og:description"
+      content="Nhập lời bài hát và tìm kiếm video trên YouTube ngay lập tức!"
+    />
+    <meta
+      property="og:image"
+      content="https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
+    />
+    <meta property="og:url" content="https://yourwebsite.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Tìm Bài Hát Qua Lời</title>
+    <link rel="stylesheet" href="timbaihat.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="favicon.png" />
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-50 to-gray-100 min-h-screen flex items-center justify-center px-4"
+  >
+    <main
+      class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg md:max-w-xl transform transition-all hover:scale-105"
+    >
+      <h1
+        class="text-3xl font-extrabold text-gray-800 mb-6 text-center animate-fade-in"
+      >
+        🔍 Tìm Bài Hát Qua Lời
+      </h1>
+
+      <section class="mb-6">
+        <input
+          id="lyricsInput"
+          type="text"
+          placeholder="Nhập một đoạn lời bài hát..."
+          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+          oninput="validateInput()"
+        />
+        <p id="inputError" class="text-red-500 text-sm mt-1 hidden">
+          ❗ Vui lòng nhập ít nhất 3 ký tự.
+        </p>
+      </section>
+
+      <button
+        onclick="searchYouTube()"
+        class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition-all transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
+      >
+        Tìm bài hát
+      </button>
+
+      <section
+        id="result"
+        class="mt-6 text-center text-gray-700 animate-fade-in"
+      ></section>
+    </main>
+
+    <script src="timbaihat.js"></script>
+  </body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hiệu Ứng Trang Chủ IT</title>
+    <script>
+      // Ngăn người dùng mở công cụ nhà phát triển
+      document.addEventListener("keydown", function (e) {
+        if (
+          e.key === "F12" ||
+          e.keyCode === 123 ||
+          (e.ctrlKey &&
+            e.shiftKey &&
+            (e.key === "i" ||
+              e.key === "j" ||
+              e.key === "c" ||
+              e.key === "u")) ||
+          (e.ctrlKey && e.key === "s")
+        ) {
+          e.preventDefault();
+        }
+      });
+
+      // Chặn menu chuột phải
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: #000;
+        color: #0f0;
+        font-family: "VT323", monospace;
+        cursor: crosshair;
+        transition: background-color 0.1s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        font-size: 16px;
+      }
+
+      #initial-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 300;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .modal-content {
+        background-color: #000;
+        padding: 30px 50px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(0, 255, 0, 0.7);
+        border: none;
+        animation: glow 1.5s infinite alternate;
+        position: relative;
+      }
+
+      .modal-content h3 {
+        margin-top: 0;
+        font-size: 4em;
+        text-shadow: 0 0 10px #0f0;
+      }
+
+      .modal-content p {
+        font-size: 1.2em;
+        margin-bottom: 25px;
+        text-shadow: 0 0 5px #0f0;
+      }
+
+      .modal-content button {
+        background-color: #0f0;
+        color: #000;
+        border: none;
+        padding: 12px 25px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        font-family: "VT323", monospace;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+
+      .modal-content button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px #0f0;
+      }
+
+      @keyframes glow {
+        from {
+          box-shadow: 0 0 25px rgba(0, 255, 0, 0.7);
+        }
+        to {
+          box-shadow: 0 0 35px rgba(0, 255, 0, 0.9);
+        }
+      }
+
+      #haunting-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 5s ease-in-out;
+        z-index: 100;
+        display: none;
+      }
+
+      /* CSS cho mũi tên được cố định ở vị trí dưới nút menu */
+      #instruction-arrow {
+        position: fixed;
+        top: -19px;
+        left: 1px;
+        width: 150px;
+        height: auto;
+        transform: rotate(145deg);
+        animation: pulse 1s infinite;
+        z-index: 400;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1) rotate(190deg);
+        }
+        50% {
+          transform: scale(1.1) rotate(147deg);
+        }
+        100% {
+          transform: scale(1) rotate(145deg);
+        }
+      }
+
+      /* CSS chung cho tất cả các video, ban đầu bị ẩn */
+      .video-sequence {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        display: none;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="red-menu-button">
+      <div id="red-menu-button-center"></div>
+    </div>
+    <img id="instruction-arrow" src="muiten.png" alt="Mũi tên" />
+
+    <div id="initial-modal">
+      <div class="modal-content">
+        <h3 id="modal-greeting"></h3>
+        <p id="modal-instruction"></p>
+        <button id="modal-ok">Bắt đầu</button>
+      </div>
+    </div>
+
+    <!--        <img id="haunting-image" src="anhnenma.png" alt="Ảnh ma" />
+            <audio id="jumpscare-audio" src="nhackinhdi.mp3" preload="auto"></audio> 
+-->
+
+    <video id="video1" class="video-sequence">
+      <source src="Mơ_hồ.mp4" type="video/mp4" />
+    </video>
+
+    <video id="video2" class="video-sequence">
+      <source src="nenvideo1.mp4" type="video/mp4" />
+    </video>
+
+    <script>
+      const initialModal = document.getElementById("initial-modal");
+      const modalGreeting = document.getElementById("modal-greeting");
+      const modalInstruction = document.getElementById("modal-instruction");
+      const modalOk = document.getElementById("modal-ok");
+      const instructionArrow = document.getElementById("instruction-arrow");
+
+      // Lấy tất cả các video và đặt chúng vào một mảng
+      const videoElements = [
+        document.getElementById("video1"),
+        document.getElementById("video2"),
+      ];
+
+      // Biến để lưu chỉ số video hiện tại
+      let currentVideoIndex = 0;
+      const videoHistoryKey = "lastPlayedVideoIndex";
+
+      // Hàm tạo hiệu ứng gõ chữ
+      function typeEffect(element, text, speed) {
+        return new Promise((resolve) => {
+          let i = 0;
+          element.textContent = "";
+          function type() {
+            if (i < text.length) {
+              element.textContent += text.charAt(i);
+              i++;
+              setTimeout(type, speed);
+            } else {
+              resolve();
+            }
+          }
+          type();
+        });
+      }
+
+      // Cập nhật lời chào theo giờ địa phương
+      function updateGreeting() {
+        const now = new Date();
+        const hour = now.getHours();
+        let greeting = "";
+        if (hour >= 5 && hour < 12) {
+          greeting = "Chào buổi sáng!";
+        } else if (hour >= 12 && hour < 18) {
+          greeting = "Chào buổi chiều!";
+        } else if (hour >= 18 && hour < 22) {
+          greeting = "Chào buổi tối!";
+        } else {
+          greeting = "Chúc ngủ ngon!";
+        }
+        return greeting;
+      }
+
+      // Xử lý khi video kết thúc: lưu chỉ số video và chuyển hướng
+      function onVideoEnded() {
+        // Cập nhật chỉ số video tiếp theo
+        let nextIndex = (currentVideoIndex + 1) % videoElements.length;
+        localStorage.setItem(videoHistoryKey, nextIndex);
+
+        // Chuyển hướng đến trang hướng dẫn
+        window.location.href = "gioithieu.html";
+      }
+
+      // Xử lý khi nút Bắt đầu được nhấn
+      async function startSequence() {
+        // Ẩn màn hình bắt đầu
+        initialModal.style.display = "none";
+
+        // Lấy chỉ số video từ localStorage hoặc mặc định là 0
+        let storedIndex = localStorage.getItem(videoHistoryKey);
+        currentVideoIndex = storedIndex ? parseInt(storedIndex, 10) : 0;
+
+        // Hiển thị và phát video tương ứng
+        const videoToPlay = videoElements[currentVideoIndex];
+        videoToPlay.style.display = "block";
+        videoToPlay.play();
+
+        // Gắn sự kiện kết thúc cho video đang phát
+        videoToPlay.addEventListener("ended", onVideoEnded);
+      }
+
+      // Khởi động khi tải trang
+      window.addEventListener("load", async () => {
+        // Ẩn ban đầu tất cả các video
+        videoElements.forEach((video) => {
+          video.style.display = "none";
+        });
+        modalOk.style.display = "none";
+        modalInstruction.style.display = "none";
+        initialModal.style.display = "none";
+
+        // Hiển thị mũi tên và nút menu ngay lập tức
+        instructionArrow.style.opacity = "1";
+
+        // Bắt đầu gõ chữ và hiển thị modal
+        setTimeout(async () => {
+          initialModal.style.display = "flex";
+          const greetingText = updateGreeting();
+          await typeEffect(modalGreeting, greetingText, 70);
+          modalOk.style.display = "inline-block";
+        }, 0);
+      });
+
+      // Gắn sự kiện click cho nút "Bắt đầu"
+      modalOk.addEventListener("click", startSequence);
+    </script>
+  </body>
+</html>

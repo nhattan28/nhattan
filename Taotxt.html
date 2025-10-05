@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notepad</title>
+    <link rel="stylesheet" href="Taotxt.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Notepad</h2>
+      <div class="input-group">
+        <div class="textarea-wrapper">
+          <textarea
+            class="line-numbers-area"
+            id="lineNumbers"
+            readonly
+            tabindex="-1"
+            wrap="off"
+            spellcheck="false"
+          >
+          1</textarea
+          >
+          <textarea
+            class="content-area"
+            id="content"
+            placeholder="Enter content...."
+            wrap="off"
+            oninput="updateLineNumbers(); saveState();"
+            onscroll="syncScroll()"
+            spellcheck="false"
+          ></textarea>
+        </div>
+      </div>
+      <div class="input-group">
+        <input
+          type="text"
+          id="filename"
+          class="filename-input"
+          placeholder="File name"
+          value=""
+        />
+      </div>
+      <div class="button-group">
+        <button onclick="saveTxt()">Download</button>
+        <button onclick="clearText()">Delete</button>
+        <button id="undoBtn" onclick="undo()" disabled>Undo</button>
+        <button id="redoBtn" onclick="redo()" disabled>Redo</button>
+        <button onclick="pasteText()">Paste</button>
+        <button onclick="copyText()">Copy</button>
+      </div>
+    </div>
+    <script src="Taotxt.js"></script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tìm ảnh sinh viên — Duy Tân</title>
+    <link rel="stylesheet" href="anhsv.css" />
+    <!-- SheetJS để đọc Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  </head>
+  <body>
+    <div class="main-container">
+      <div id="search-form-container">
+        <h1>Tìm ảnh sinh viên</h1>
+        <h2>ĐẠI HỌC DUY TÂN</h2>
+
+        <form id="search-form">
+          <textarea
+            id="student-ids"
+            placeholder="Nhập nhiều MSSV (mỗi MSSV trên 1 dòng hoặc cách nhau bởi dấu phẩy)"
+            autocomplete="off"
+          ></textarea>
+          <div class="row">
+            <input type="file" id="upload-file" accept=".txt,.csv,.xlsx,.xls" />
+          </div>
+
+          <div class="row input-buttons">
+            <button type="button" id="paste-button">📋 Dán</button>
+            <button type="button" id="clear-button">🗑 Xóa</button>
+          </div>
+          <button type="submit" id="search-btn">🔍 Tìm kiếm</button>
+          <div id="info" class="info"></div>
+        </form>
+      </div>
+
+      <div id="image-view">
+        <div class="topbar">
+          <button id="back-button">Quay lại</button>
+          <input
+            type="text"
+            id="search-in-images"
+            placeholder="Tìm MSSV trong danh sách..."
+          />
+          <div id="summary" class="summary"></div>
+        </div>
+
+        <div id="student-images" class="grid"></div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="anhsv.js"></script>
+  </body>
+</html>

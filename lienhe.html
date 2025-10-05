@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Thêm box-sizing để padding không gây tràn nội dung */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Phong cách chung cho toàn bộ trang */
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            /* Loại bỏ overflow: hidden; để cho phép cuộn tự do */
+        }
+
+        /* Tùy chỉnh padding cho màn hình lớn */
+        @media (min-width: 768px) {
+            html, body {
+                /* Vẫn giữ overflow: hidden; trên màn hình lớn nếu cần */
+                overflow: hidden;
+            }
+        }
+        
+        /* Định nghĩa style cho body */
+        .main-body-style {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0.5rem;
+            background: linear-gradient(to bottom right, #748499, #e0e7ff);
+        }
+        
+        /* Tùy chỉnh padding cho màn hình lớn */
+        @media (min-width: 768px) {
+            .main-body-style {
+                padding: 1rem;
+            }
+        }
+
+        /* CSS cho main content card */
+        .main-content-card {
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 56rem;
+            width: 100%;
+            transition: transform 0.5s ease-in-out;
+            transform: scale(1);
+        }
+        
+        .main-content-card:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Tùy chỉnh padding cho màn hình lớn */
+        @media (min-width: 768px) {
+            .main-content-card {
+                padding: 2rem;
+            }
+        }
+
+        /* CSS cho các thẻ con bên trong */
+        .sub-card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border-width: 1px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+
+        .sub-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #60a5fa;
+        }
+        
+        /* CSS cho các liên kết mạng xã hội */
+        .social-link {
+            display: flex;
+            align-items: center;
+            column-gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+        }
+        
+        .social-link:hover {
+            background-color: #5182c3;
+        }
+
+        /* Hiệu ứng trượt lên cho các thẻ */
+        .card-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Thêm hiệu ứng hover đẹp mắt cho các liên kết */
+        a {
+            transition: color 0.3s ease-in-out;
+        }
+        a:hover {
+            color: #4c51bf;
+            text-decoration: underline;
+        }
+        
+        /* CSS cho nút "Tìm vị trí" */
+        .location-button {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background-color: #2563eb;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+
+        .location-button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .location-button:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #60a5fa;
+        }
+    </style>
+</head>
+<body class="main-body-style">
+    <div class="main-content-card">
+        <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-6 drop-shadow-sm">Thông Tin Liên Hệ</h1>                                                                          
+            <div class="card-animation sub-card">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Mạng Xã Hội</h2>
+                <div class="flex flex-wrap gap-4 text-blue-600">
+                    <a href="https://t.me/babycuaaidangyeu" target="_blank" class="social-link">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.3 8.85l-7.38 3.51c-.48.23-.97 0-.97-.52 0-.2.12-.39.29-.5l2.67-1.87c.2-.14.47-.23.75-.25l.8-.02c.3-.01.55.23.53.53 0 .04-.01.07-.02.1l-.8 8.01c-.04.42.34.8.76.76l.1-.01c.28-.02.55-.1.74-.26l3.51-2.67c.23-.17.43-.37.56-.63l1.87-2.67c.17-.23.23-.5-.14-.64z"/>
+                        </svg>
+                        <span>Telegram</span>
+                    </a>
+                    
+                    <a href="mailto:nhattan2032810@gmail.com" class="social-link">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
+                        </svg>
+                        <span>Gmail</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="w-full h-80 rounded-2xl overflow-hidden shadow-lg border border-gray-200 relative">
+            <h2 class="text-xl font-semibold p-4 text-center text-gray-700 bg-gray-50 border-b border-gray-200">Vị trí của tôi</h2>
+            <iframe 
+                id="userLocationMap"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.0202271842426!2d108.20455437466827!3d16.06456728461749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c629524581%3A0x6a0c5c40e53a9926!2sDuy%20Tan%20University!5e0!3m2!1sen!2svi!4v1698293751767!5m2!1sen!2svi" 
+                width="100%" 
+                height="100%" 
+                style="border:0;"
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div id="location-status-container" class="absolute bottom-4 left-4 right-4 flex flex-col items-start space-y-2">
+                <button id="findLocationBtn" class="location-button">
+                    Vị trí
+                </button>
+                <p id="userLocationStatus" class="text-red-600 font-medium"></p>
+            </div>
+        </div>
+        <p id="userLocationText" class="text-center mt-4 text-gray-600 font-medium hidden">
+            </p>
+    </div>
+
+    <script>
+        // Get necessary elements from the DOM
+        const findLocationBtn = document.getElementById('findLocationBtn');
+        const userLocationMap = document.getElementById('userLocationMap');
+        const userLocationText = document.getElementById('userLocationText');
+        const userLocationStatus = document.getElementById('userLocationStatus');
+        
+        // Add click event listener to the button
+        findLocationBtn.addEventListener('click', () => {
+            // Check if the browser supports Geolocation API
+            if (navigator.geolocation) {
+                // Show a loading message
+                userLocationStatus.textContent = "Đang tìm vị trí của bạn...";
+                userLocationStatus.classList.remove('hidden');
+                
+                // Get the user's current location
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        
+                        // Update the iframe with the new location
+                        userLocationMap.src = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d${lon}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${lat},${lon}!5e0!3m2!1sen!2svi!4v1698293751767!5m2!1sen!2svi`;
+
+                        // Clear the status message
+                        userLocationStatus.textContent = "Đã tìm thấy vị trí. Đang tải địa chỉ...";
+                        
+                        // Fetch the address from the coordinates using Nominatim
+                        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`)
+                            .then(response => response.json())
+                            .then(data => {
+                                const address = data.display_name || "Không tìm thấy địa chỉ.";
+                                userLocationText.textContent = `Địa chỉ: ${address}`;
+                                userLocationText.classList.remove('hidden');
+                                userLocationStatus.textContent = "Tìm kiếm hoàn tất!";
+                            })
+                            .catch(error => {
+                                console.error("Error fetching address:", error);
+                                userLocationText.textContent = "Không thể tìm thấy địa chỉ.";
+                                userLocationText.classList.remove('hidden');
+                                userLocationStatus.textContent = "Đã xảy ra lỗi khi tìm địa chỉ.";
+                            });
+
+                    },
+                    (error) => {
+                        // Handle errors if the user denies or location is not found
+                        let errorMessage = "Không thể tìm thấy vị trí của bạn.";
+                        if (error.code === 1) {
+                            errorMessage = "Bạn đã từ chối quyền truy cập vị trí.";
+                        } else if (error.code === 2) {
+                            errorMessage = "Vị trí không thể xác định được.";
+                        } else {
+                            errorMessage = "Hết thời gian chờ khi tìm vị trí.";
+                        }
+                        userLocationStatus.textContent = `Lỗi: ${errorMessage}`;
+                        console.error("Geolocation error:", error);
+                    }
+                );
+            } else {
+                // Browser does not support Geolocation API
+                userLocationStatus.textContent = "Lỗi: Trình duyệt của bạn không hỗ trợ Geolocation.";
+            }
+        });
+    </script>
+</body>
+</html>
