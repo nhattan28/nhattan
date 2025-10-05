@@ -162,7 +162,6 @@ function showQuestionCountPopup(totalQuestions) {
         <div class="flex flex-col items-center space-y-3">
             <input type="number" id="randomCountInput" min="1" max="${totalQuestions}" placeholder="Nhập số câu (tối đa ${totalQuestions})" required 
                    class="w-full sm:w-2/3 p-3 border rounded-lg focus:ring-2 focus:ring-pink-500 text-center font-medium"/>
-            <p class="text-sm text-gray-500 italic">Mặc định: 30 giây/câu</p>
         </div>
     `;
 
@@ -795,3 +794,4 @@ function showUsageGuidePopup() {
  `;
     showPopup(usageGuideContent, false);
 }
+
