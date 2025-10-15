@@ -216,7 +216,7 @@
         
         /* --- KHẮC PHỤC LỖI CUỘN/TRỐNG DƯỚI BẢNG --- */
         .table-wrapper {
-            max-height: 400px;
+            max-height: 380px;
             overflow-y: auto;
             overflow-x: auto; 
             margin-top: 15px;
