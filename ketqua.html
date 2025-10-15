@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kết Quả Bài Làm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: "Inter", "Segoe UI", sans-serif; margin: 0; padding: 0; background: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") no-repeat center center fixed; background-size: cover; color: #1f2937; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; user-select: none; -webkit-user-select: none; }
+        .container { width: 95%; max-width: 1200px; margin: 1.5rem auto; padding: 2rem; background: rgba(255, 255, 255, 0.95); border-radius: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(10px); }
+        table { background: rgba(246, 212, 212, 0.9); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+        th, td { padding: 1rem; border: 2px solid rgba(188, 123, 123, 0.5); text-align: center; }
+        th { background: rgba(255, 255, 255, 0.3); font-weight: 600; color: #1e40af; }
+        #answerDashboard { display: none; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center py-6">
+    <div class="container">
+        <h1 class="text-3xl md:text-4xl font-bold mb-6 text-center text-indigo-700">📊 Kết Quả Bài Làm</h1>
+        
+        <div id="violationNotice" class="hidden text-red-600 text-xl font-semibold text-center mb-4 p-3 bg-red-100 rounded-lg border border-red-300"></div>
+
+        <div class="overflow-x-auto mb-4">
+            <table class="w-full text-center">
+                <thead>
+                    <tr>
+                        <th>Điểm</th>
+                        <th>Số câu đúng</th>
+                        <th>Số câu sai</th>
+                        <th>Tổng số câu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="score"></td>
+                        <td id="correct"></td>
+                        <td id="wrong"></td>
+                        <td id="total"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="answerDashboard"></div>
+
+        <div class="toggle-buttons flex justify-center gap-4 my-4">
+            <button id="toggleWrongBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Hiển thị câu sai</button>
+            <button id="toggleCorrectBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Hiển thị câu đúng</button>
+        </div>
+
+        <div id="wrongAnswersSection" class="mt-8" style="display: none">
+            <h2 class="text-2xl font-semibold text-red-600 mb-6 text-center">❌ Câu trả lời sai</h2>
+            <div id="wrongAnswersContainer" class="space-y-6"></div>
+        </div>
+
+        <div id="correctAnswersSection" class="mt-8" style="display: none">
+            <h2 class="text-2xl font-semibold text-green-600 mb-6 text-center">✅ Câu trả lời đúng</h2>
+            <div id="correctAnswersContainer" class="space-y-6"></div>
+        </div>
+        
+        <div id="perfectMessage" class="hidden text-center text-green-600 text-2xl font-semibold mt-8">🎉 Tuyệt vời! Bạn đã làm đúng tất cả câu hỏi! 🎉</div>
+
+        <div class="mt-10 text-center">
+            <div class="button-group flex flex-wrap gap-4 justify-center">
+                </div>
+        </div>
+    </div>
+    <script src="ketqua.js"></script>
+</body>
+</html>
