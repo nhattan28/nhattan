@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tra Cứu Lịch Thi Duy Tân</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="timmonthi.css" />
+  </head>
+  <body>
+    <div id="modalContainer" onclick="hideModal()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="modal-icon" id="modalIcon"></span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalMessage"></p>
+        <div class="modal-actions" id="modalActions"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1>Tra Cứu Lịch Môn Duy Tân</h1>
+
+      <div id="step1Container" style="display: none">
+        <h2>Bước 1: Tải Lên File Lịch Thi 📂</h2>
+        <p>
+          Vui lòng chọn file lịch thi (.XLSX hoặc .CSV) từ trường Đại học Duy
+          Tân.
+        </p>
+        <input
+          type="file"
+          id="examFile"
+          accept=".csv, text/csv, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          onchange="handleFileUpload(event)"
+        />
+      </div>
+
+      <div id="step2Container">
+        <div id="searchSection">
+          <div class="search-input-group">
+            <input
+              type="text"
+              id="searchTermInput"
+              placeholder="Nhập Khối thi, Mã môn, hoặc Tên môn..."
+              oninput="searchData()"
+              autocomplete="off"
+            />
+            <button class="copy-button" onclick="showDownloadConfirmModal()">
+              Tải Ảnh
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrapper" id="tableWrapper">
+          <div id="captureArea">
+            <table id="resultTable">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="100%">Đang tải dữ liệu lịch thi...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="timmonthi.js"></script>
+  </body>
+</html>
