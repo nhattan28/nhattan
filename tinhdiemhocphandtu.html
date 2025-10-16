@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Điểm DTU</title>
+    <link rel="icon" href="https://i.imgur.com/O6g1gS1.png" type="image/png">
+    <style>
+        /* === CSS Styling === */
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #A1242E; /* DTU Red */
+            --pass-color: #28a745;
+            --fail-color: #dc3545;
+            --warning-color: #ffc107;         
+            --border-color: #dee2e6;
+            --text-color: #343a40;
+            --background-color: #f8caca;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        .main-container {
+            display: flex;
+            gap: 25px;
+            max-width: none;
+            margin: 0 20px;
+            align-items: flex-start;
+        }
+
+        .panel {
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .input-panel {
+            flex: 7;
+        }
+
+        .result-panel {
+            flex: 3;
+            position: sticky;
+            top: 20px;
+            background: none;
+            box-shadow: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dtu-logo-footer {
+            text-align: center;
+        }
+
+        .dtu-logo-footer img {
+            max-width: 200px;
+            height: auto;
+            opacity: 1; /* <-- THAY ĐỔI Ở ĐÂY: Logo luôn rõ nét */
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+
+        .input-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .input-table th, .input-table td {
+            padding: 14px 10px;
+            text-align: left;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .input-table th {
+            font-weight: 600;
+            color: #6c757d;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .input-table td {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .input-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .input-table input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-table input:focus {
+            border-color: var(--primary-color);
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba(161, 36, 46, 0.15);
+        }
+        .stt-cell { font-weight: bold; text-align: center; color: #6c757d; }
+        .action-cell { width: 40px; text-align: center; }
+
+        .remove-btn {
+            background-color: #e74c3c; color: white; border: none;
+            border-radius: 50%; width: 28px; height: 28px;
+            font-weight: bold; cursor: pointer; line-height: 28px;
+            font-size: 16px; transition: background-color 0.2s;
+        }
+        .remove-btn:hover { background-color: #c0392b; }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .btn {
+            padding: 10px 20px; border: none; border-radius: 6px;
+            cursor: pointer; font-size: 16px; font-weight: 600;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .btn:active { transform: scale(0.98); }
+
+        .add-btn { background-color: var(--pass-color); color: white; }
+        .add-btn:hover { background-color: #218838; }
+        
+        .reset-btn { background-color: var(--warning-color); color: #212529; }
+        .reset-btn:hover { background-color: #e0a800; }
+        
+        #total-percent {
+            font-weight: bold; text-align: right;
+            margin-top: 15px; padding: 10px; color: var(--text-color);
+            height: 24px; font-size: 1.1em;
+            background-color: var(--light-gray);
+            border-radius: 6px;
+        }
+        
+        .result-container {
+             border-top: 5px solid var(--primary-color);
+             text-align: center;
+        }
+        
+        #result-display .status {
+            font-size: 2.2em; font-weight: 700; margin-bottom: 15px;
+        }
+        
+        #result-display .details { font-size: 1.1em; line-height: 1.9; text-align: left; padding: 0 10px; }
+        #result-display .details strong { float: right; }
+
+        #result-display .message {
+            margin-top: 20px; font-style: italic;
+            color: #6c757d; font-size: 1em; border-top: 1px dashed var(--border-color); padding-top: 15px;
+        }
+
+        .status-pass { color: var(--pass-color); }
+        .status-fail { color: var(--fail-color); }
+        .status-wait, .status-warn { color: #6c757d; }
+
+        .result-container.pass-border { border-top-color: var(--pass-color); }
+        .result-container.fail-border { border-top-color: var(--fail-color); }
+        .result-container.warn-border { border-top-color: var(--warning-color); }
+
+        @media (max-width: 900px) {
+            body { padding: 10px 0; }
+            .main-container { flex-direction: column; margin: 0 10px; }
+            .result-panel { position: static; top: auto; width: 100%; box-sizing: border-box; }
+            .panel { padding: 20px 15px; }
+            h1 { font-size: 1.8em; margin-bottom: 20px; }
+            .btn { padding: 10px 15px; font-size: 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="input-panel panel">
+            <h1>Công Cụ Tính Điểm Học Phần</h1>
+            <div class="input-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">STT</th>
+                            <th>Tên Bài Giao</th>
+                            <th style="width: 120px;">Điểm</th>
+                            <th style="width: 120px;">% Điểm tối đa</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fixed-row">
+                            <td class="stt-cell">★</td>
+                            <td>Kiểm Tra Cuối Kỳ</td>
+                            <td><input type="number" class="grade-input" id="final-exam-score" placeholder="0-10"></td>
+                            <td><input type="number" class="grade-input" id="final-exam-weight" placeholder="%"></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tbody id="grade-rows"></tbody>
+                </table>
+            </div>
+             <div id="total-percent">Tổng: 0%</div>
+            <div class="controls">
+                <button id="add-row-btn" class="btn add-btn">➕ Thêm Đầu Điểm</button>
+                <button id="reset-btn" class="btn reset-btn">🔄 Nhập Lại</button>
+            </div>
+        </div>
+
+        <div class="result-panel">
+            <div class="result-container panel" id="result-container">
+                <div id="result-display">
+                </div>
+            </div>
+            <div class="dtu-logo-footer">
+                <img src="https://dhduytan.com/wp-content/uploads/2025/05/cropped-logo-duy-tan_vn.png" alt="Logo Đại học Duy Tân">
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const gradeRowsContainer = document.getElementById('grade-rows');
+        const addRowBtn = document.getElementById('add-row-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const totalPercentDisplay = document.getElementById('total-percent');
+        const resultDisplay = document.getElementById('result-display');
+        const resultContainer = document.getElementById('result-container');
+
+        const calculateAndDisplay = () => {
+            let finalScore = 0;
+            let totalWeight = 0;
+            let allInputsFilled = true;
+
+            const finalExamScoreInput = document.getElementById('final-exam-score');
+            const finalExamWeightInput = document.getElementById('final-exam-weight');
+
+            const finalExamScore = parseFloat(finalExamScoreInput.value);
+            const finalExamWeight = parseFloat(finalExamWeightInput.value);
+
+            if (!isNaN(finalExamWeight)) totalWeight += finalExamWeight;
+            if (!isNaN(finalExamScore) && !isNaN(finalExamWeight)) {
+                finalScore += finalExamScore * (finalExamWeight / 100);
+            }
+            if (finalExamScoreInput.value === '' || finalExamWeightInput.value === '') allInputsFilled = false;
+
+            const rows = document.querySelectorAll('#grade-rows .input-row');
+            rows.forEach(row => {
+                const scoreInput = row.querySelector('.grade-score');
+                const weightInput = row.querySelector('.grade-weight');
+                const score = parseFloat(scoreInput.value);
+                const weight = parseFloat(weightInput.value);
+
+                if (!isNaN(weight)) totalWeight += weight;
+                if (!isNaN(score) && !isNaN(weight)) finalScore += score * (weight / 100);
+                if (scoreInput.value === '' || weightInput.value === '') allInputsFilled = false;
+            });
+            
+            totalPercentDisplay.textContent = `Phần trăm: ${totalWeight}%`;
+            totalPercentDisplay.style.color = (totalWeight === 100) ? 'var(--pass-color)' : 'var(--fail-color)';
+            
+            if (!allInputsFilled) {
+                displayResult('Chờ nhập liệu...', 'wait', 'Vui lòng nhập đầy đủ điểm và trọng số.');
+                return;
+            }
+
+            if (totalWeight !== 100) {
+                displayResult('Trọng số chưa đúng!', 'warn', `Phần trăm phải bằng 100%, hiện tại là ${totalWeight}%.`);
+                return;
+            }
+            
+            if (finalExamScore < 1.0) {
+                displayResult('RỚT', 'fail', 'Bị điểm liệt ở bài thi cuối kỳ (< 1.0).', {score: finalScore});
+                return;
+            }
+
+            if (finalScore < 4.0) {
+                displayResult('RỚT', 'fail', `Điểm tổng kết (${finalScore.toFixed(2)}) dưới 4.0.`, {score: finalScore});
+                return;
+            }
+            
+            const roundedScore = Math.round(finalScore * 10) / 10;
+            const gradeInfo = getGradeInfo(roundedScore);
+            
+            displayResult('ĐẠT', 'pass', '', {
+                originalScore: finalScore,
+                finalRoundedScore: roundedScore,
+                gradeInfo: gradeInfo
+            });
+        };
+
+        const createNewRow = () => {
+            const row = document.createElement('tr');
+            row.classList.add('input-row');
+            row.innerHTML = `<td class="stt-cell"></td><td>Điểm thành phần</td><td><input type="number" class="grade-input grade-score" placeholder="0-10"></td><td><input type="number" class="grade-input grade-weight" placeholder="%"></td><td class="action-cell"><button class="remove-btn">-</button></td>`;
+            row.querySelector('.remove-btn').addEventListener('click', () => { row.remove(); updateRowNumbers(); calculateAndDisplay(); });
+            row.querySelectorAll('.grade-input').forEach(input => input.addEventListener('input', calculateAndDisplay));
+            gradeRowsContainer.appendChild(row);
+            updateRowNumbers();
+        };
+
+        const updateRowNumbers = () => {
+            gradeRowsContainer.querySelectorAll('.input-row').forEach((row, index) => {
+                row.querySelector('.stt-cell').textContent = index + 1;
+            });
+        };
+        
+        const resetAll = () => {
+            gradeRowsContainer.innerHTML = '';
+            document.getElementById('final-exam-score').value = '';
+            document.getElementById('final-exam-weight').value = '';
+            createNewRow();
+            createNewRow();
+            calculateAndDisplay();
+        };
+
+        function displayResult(statusText, statusClass, reason, data) {
+            let html = '';
+            resultContainer.className = `panel result-container ${statusClass}-border`;
+            const message = (data && data.gradeInfo) ? getMotivationalMessage(statusClass, data.gradeInfo) : getMotivationalMessage(statusClass, null);
+
+            if (statusClass === 'pass') {
+                html = `
+                    <div class="status status-pass">${statusText}</div>
+                    <div class="details">
+                        Điểm thang 10: <strong>${data.finalRoundedScore.toFixed(2)}</strong> <br>
+                        <small style="color: #6c757d;">(Gốc: ${data.originalScore.toFixed(2)})</small><br>
+                        Điểm thang 4: <strong>${data.gradeInfo.gpa.toFixed(2)}</strong> <br>
+                        Điểm chữ: <strong>${data.gradeInfo.letter}</strong> <br>
+                        Xếp loại: <strong>${data.gradeInfo.classification}</strong>
+                    </div>
+                    <p class="message">${message}</p>
+                `;
+            } else if (statusClass === 'fail') {
+                 html = `
+                    <div class="status status-fail">${statusText}</div>
+                    <div class="details">
+                        Điểm thang 10: <strong>${(data ? data.score : 0).toFixed(2)}</strong><br>
+                        Điểm thang 4: <strong>0.00</strong>
+                    </div>
+                     <p class="message">${message}</p>
+                `;
+            } else {
+                html = `<div class="status status-${statusClass}">${statusText}</div><p class="message">${reason}</p>`;
+            }
+            resultDisplay.innerHTML = html;
+        }
+
+        function getGradeInfo(score) {
+            if (score >= 9.5) return { letter: 'A+', gpa: 4.0, classification: 'Giỏi' };
+            if (score >= 8.5) return { letter: 'A', gpa: 4.0, classification: 'Giỏi' };
+            if (score >= 8.0) return { letter: 'A-', gpa: 3.65, classification: 'Giỏi' };
+            if (score >= 7.5) return { letter: 'B+', gpa: 3.33, classification: 'Khá' };
+            if (score >= 7.0) return { letter: 'B', gpa: 3.0, classification: 'Khá' };
+            if (score >= 6.5) return { letter: 'B-', gpa: 2.65, classification: 'Khá' };
+            if (score >= 6.0) return { letter: 'C+', gpa: 2.33, classification: 'Trung bình' };
+            if (score >= 5.5) return { letter: 'C', gpa: 2.0, classification: 'Trung bình' };
+            if (score >= 4.5) return { letter: 'C-', gpa: 1.65, classification: 'Trung bình yếu' };
+            if (score >= 4.0) return { letter: 'D', gpa: 1.0, classification: 'Trung bình yếu' };
+            return { letter: 'F', gpa: 0.0, classification: 'Kém' };
+        }
+
+        function getMotivationalMessage(status, gradeInfo) {
+            if (status === 'fail') return "Đừng nản lòng, hãy xem lại những thiếu sót và chuẩn bị thật kỹ cho lần sau. Thất bại là mẹ thành công!";
+            if (status !== 'pass') return "";
+            switch (gradeInfo.letter) {
+                case 'A+': case 'A': return "Xuất sắc! Một kết quả thật đáng ngưỡng mộ.";
+                case 'A-': case 'B+': case 'B': return "Làm tốt lắm! Kết quả rất ổn, cố gắng thêm chút nữa để đạt mục tiêu cao hơn.";
+                case 'B-': case 'C+': case 'C': return "Qua môn rồi, tuyệt vời! Đây là nền tảng để bạn bứt phá ở những học phần tiếp theo.";
+                default: return "Chúc mừng đã qua môn! Mọi sự cố gắng đều được đền đáp.";
+            }
+        }
+
+        addRowBtn.addEventListener('click', createNewRow);
+        resetBtn.addEventListener('click', resetAll);
+        document.querySelectorAll('.grade-input').forEach(input => input.addEventListener('input', calculateAndDisplay));
+        resetAll();
+    });
+    </script>
+</body>
+</html>
