@@ -1,4 +1,4 @@
-        :root {
+:root {
             --primary-color: #007bff;
             --secondary-color: #6c757d;
             --success-color: #28a745;
@@ -16,11 +16,11 @@
             min-height: 100vh;
         }
         .container {
-            max-width: 1200px;
-            margin: 20px auto; 
+            max-width: 120px;
+            margin: 10px auto; 
             background: #fff;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 5px 10px; /* THAY ĐỔI: Giảm padding trên và dưới */
+            border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
@@ -34,9 +34,10 @@
         h1 {
             color: var(--primary-color);
             text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 10px;
+            margin: 5px 0 8px 0; /* THAY ĐỔI: Giảm margin */
+            border-bottom: 1px solid var(--primary-color);
+            padding-bottom: 4px; /* THAY ĐỔI: Giảm padding */
+            font-size: 1.1em; /* THAY ĐỔI: Giảm kích thước font */
         }
         h2 {
             color: #343a40;
@@ -216,13 +217,13 @@
         
         /* --- KHẮC PHỤC LỖI CUỘN/TRỐNG DƯỚI BẢNG --- */
         .table-wrapper {
-            max-height: 380px;
+            max-height: 530px;
             overflow-y: auto;
             overflow-x: auto; 
             margin-top: 15px;
             position: relative; 
             /* ĐIỀU CHỈNH: Tăng padding-bottom lên 60px để có thêm khoảng trống cuộn */
-            padding-bottom: 60px; 
+            padding-bottom: 10px; 
         }
         
         #captureArea {
@@ -300,8 +301,8 @@
                 border-radius: 8px;
             }
             h1 {
-                font-size: 1.5em;
-                margin-bottom: 15px;
+                font-size: 1em;
+                margin-bottom: 5px;
             }
             h2 {
                 font-size: 1.1em;
