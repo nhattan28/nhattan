@@ -35,7 +35,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            /* --- THAY ĐỔI 1: Đổi thành 'flex-start' --- */
+            /* Canh lề lên trên cho màn hình mobile (mặc định) */
+            justify-content: flex-start; 
             min-height: 100vh;
             padding: 0.5rem;
             background: linear-gradient(to bottom right, #748499, #e0e7ff);
@@ -45,6 +47,9 @@
         @media (min-width: 768px) {
             .main-body-style {
                 padding: 1rem;
+                /* --- THAY ĐỔI 2: Thêm 'justify-center' --- */
+                /* Canh giữa lại cho màn hình lớn (desktop) */
+                justify-content: center;
             }
         }
 
@@ -131,7 +136,7 @@
             text-decoration: underline;
         }
         
-        /* --- THAY ĐỔI 1: Thêm display: none; để ẩn nút --- */
+        /* --- (Nút "Vị trí" vẫn được ẩn) --- */
         .location-button {
             display: none; /* Ẩn nút "Vị trí" */
             position: absolute;
@@ -220,7 +225,7 @@
             window.location.href = url;
         }
         
-        // --- THAY ĐỔI 2: Logic này giờ sẽ tự động chạy khi tải trang ---
+        // --- Logic tự động chạy khi tải trang (không đổi) ---
         
         // Check if the browser supports Geolocation API
         if (navigator.geolocation) {
