@@ -21,13 +21,11 @@
             min-height: 100vh;
             font-family: 'Inter', sans-serif;
             color: #1e293b;
-            /* Loại bỏ overflow: hidden; để cho phép cuộn tự do */
         }
 
         /* Tùy chỉnh padding cho màn hình lớn */
         @media (min-width: 768px) {
             html, body {
-                /* Vẫn giữ overflow: hidden; trên màn hình lớn nếu cần */
                 overflow: hidden;
             }
         }
@@ -88,7 +86,7 @@
             border-color: #60a5fa;
         }
         
-        /* CSS cho các liên kết mạng xã hội */
+        /* CSS cho các liên kết mạng xã hội (và nút ủng hộ) */
         .social-link {
             display: flex;
             align-items: center;
@@ -98,10 +96,16 @@
             transition-property: all;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 200ms;
+            
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 500; 
         }
         
         .social-link:hover {
             background-color: #5182c3;
+            color: #ffffff; 
         }
 
         /* Hiệu ứng trượt lên cho các thẻ */
@@ -127,8 +131,9 @@
             text-decoration: underline;
         }
         
-        /* CSS cho nút "Tìm vị trí" */
+        /* --- THAY ĐỔI 1: Thêm display: none; để ẩn nút --- */
         .location-button {
+            display: none; /* Ẩn nút "Vị trí" */
             position: absolute;
             bottom: 1rem;
             left: 1rem;
@@ -172,6 +177,10 @@
                         </svg>
                         <span>Gmail</span>
                     </a>
+                    
+                    <button onclick="loadPage(event, 'momoqr.html')" class="social-link">
+                        🎁 <span>Ủng hộ</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -180,7 +189,7 @@
             <h2 class="text-xl font-semibold p-4 text-center text-gray-700 bg-gray-50 border-b border-gray-200">Vị trí của tôi</h2>
             <iframe 
                 id="userLocationMap"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.0202271842426!2d108.20455437466827!3d16.06456728461749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c629524581%3A0x6a0c5c40e53a9926!2sDuy%20Tan%20University!5e0!3m2!1sen!2svi!4v1698293751767!5m2!1sen!2svi" 
+                src="https://maps.google.com/maps?q=Vietnam&z=6&output=embed" 
                 width="100%" 
                 height="100%" 
                 style="border:0;"
@@ -201,67 +210,74 @@
 
     <script>
         // Get necessary elements from the DOM
-        const findLocationBtn = document.getElementById('findLocationBtn');
+        // const findLocationBtn = document.getElementById('findLocationBtn'); // Không cần nữa
         const userLocationMap = document.getElementById('userLocationMap');
         const userLocationText = document.getElementById('userLocationText');
         const userLocationStatus = document.getElementById('userLocationStatus');
         
-        // Add click event listener to the button
-        findLocationBtn.addEventListener('click', () => {
-            // Check if the browser supports Geolocation API
-            if (navigator.geolocation) {
-                // Show a loading message
-                userLocationStatus.textContent = "Đang tìm vị trí của bạn...";
-                userLocationStatus.classList.remove('hidden');
-                
-                // Get the user's current location
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        
-                        // Update the iframe with the new location
-                        userLocationMap.src = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d${lon}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${lat},${lon}!5e0!3m2!1sen!2svi!4v1698293751767!5m2!1sen!2svi`;
+        // Hàm này được gọi bởi nút "Ủng hộ"
+        function loadPage(event, url) {
+            window.location.href = url;
+        }
+        
+        // --- THAY ĐỔI 2: Logic này giờ sẽ tự động chạy khi tải trang ---
+        
+        // Check if the browser supports Geolocation API
+        if (navigator.geolocation) {
+            // Show a loading message
+            userLocationStatus.textContent = "Đang tìm vị trí của bạn...";
+            // Đảm bảo dòng trạng thái không bị ẩn
+            userLocationStatus.classList.remove('hidden'); 
+            
+            // Get the user's current location
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    
+                    // Cập nhật iframe
+                    userLocationMap.src = `https://maps.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
 
-                        // Clear the status message
-                        userLocationStatus.textContent = "Đã tìm thấy vị trí. Đang tải địa chỉ...";
-                        
-                        // Fetch the address from the coordinates using Nominatim
-                        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`)
-                            .then(response => response.json())
-                            .then(data => {
-                                const address = data.display_name || "Không tìm thấy địa chỉ.";
-                                userLocationText.textContent = `Địa chỉ: ${address}`;
-                                userLocationText.classList.remove('hidden');
-                                userLocationStatus.textContent = "Tìm kiếm hoàn tất!";
-                            })
-                            .catch(error => {
-                                console.error("Error fetching address:", error);
-                                userLocationText.textContent = "Không thể tìm thấy địa chỉ.";
-                                userLocationText.classList.remove('hidden');
-                                userLocationStatus.textContent = "Đã xảy ra lỗi khi tìm địa chỉ.";
-                            });
+                    // Cập nhật trạng thái
+                    userLocationStatus.textContent = "Đã tìm thấy vị trí. Đang tải địa chỉ...";
+                    
+                    // Fetch the address from the coordinates using Nominatim
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const address = data.display_name || "Không tìm thấy địa chỉ.";
+                            userLocationText.textContent = `Địa chỉ: ${address}`;
+                            userLocationText.classList.remove('hidden');
+                            userLocationStatus.textContent = "Tìm kiếm hoàn tất!";
+                        })
+                        .catch(error => {
+                            console.error("Error fetching address:", error);
+                            userLocationText.textContent = "Không thể tìm thấy địa chỉ.";
+                            userLocationText.classList.remove('hidden');
+                            userLocationStatus.textContent = "Đã xảy ra lỗi khi tìm địa chỉ.";
+                        });
 
-                    },
-                    (error) => {
-                        // Handle errors if the user denies or location is not found
-                        let errorMessage = "Không thể tìm thấy vị trí của bạn.";
-                        if (error.code === 1) {
-                            errorMessage = "Bạn đã từ chối quyền truy cập vị trí.";
-                        } else if (error.code === 2) {
-                            errorMessage = "Vị trí không thể xác định được.";
-                        } else {
-                            errorMessage = "Hết thời gian chờ khi tìm vị trí.";
-                        }
-                        userLocationStatus.textContent = `Lỗi: ${errorMessage}`;
-                        console.error("Geolocation error:", error);
+                },
+                (error) => {
+                    // Handle errors if the user denies or location is not found
+                    let errorMessage = "Không thể tìm thấy vị trí của bạn.";
+                    if (error.code === 1) {
+                        errorMessage = "Bạn đã từ chối quyền truy cập vị trí.";
+                    } else if (error.code === 2) {
+                        errorMessage = "Vị trí không thể xác định được.";
+                    } else {
+                        errorMessage = "Hết thời gian chờ khi tìm vị trí.";
                     }
-                );
-            } else {
-                // Browser does not support Geolocation API
-                userLocationStatus.textContent = "Lỗi: Trình duyệt của bạn không hỗ trợ Geolocation.";
-            }
-        });
+                    userLocationStatus.textContent = `Lỗi: ${errorMessage}`;
+                    console.error("Geolocation error:", error);
+                }
+            );
+        } else {
+            // Browser does not support Geolocation API
+            userLocationStatus.textContent = "Lỗi: Trình duyệt của bạn không hỗ trợ Geolocation.";
+        }
+        // --- KẾT THÚC PHẦN TỰ ĐỘNG CHẠY ---
+        
     </script>
 </body>
 </html>
