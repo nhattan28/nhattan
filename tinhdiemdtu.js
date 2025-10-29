@@ -144,6 +144,9 @@ function calculate() {
   document.getElementById("avg4").innerText =
     `📗 Điểm Trung bình Tích lũy toàn Khóa học: ${avg4}`;
   document.getElementById("rank").innerText = `🏆 Xếp loại học lực đối với sinh viên năm cuối: ${rank}`;
+  
+  // Xóa lý do hạ bậc (nếu có từ lần tính trước)
+  document.getElementById("demotionReason").innerText = "";
 
   document.getElementById("input-page").classList.add("hidden");
   document.getElementById("result-page").classList.remove("hidden");
@@ -152,9 +155,12 @@ function calculate() {
 function goBack() {
   document.getElementById("input-page").classList.remove("hidden");
   document.getElementById("result-page").classList.add("hidden");
+  // Xóa lý do hạ bậc khi quay lại
+  document.getElementById("demotionReason").innerText = "";
 }
 
 document.getElementById('fileInput').addEventListener('change', (event) => {
+  // ... (Phần này không thay đổi) ...
   const file = event.target.files[0];
   if (!file) {
     return;
@@ -173,7 +179,6 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
       return;
     }
     
-    // Tìm vị trí của các cột dựa trên tiêu đề ở bất kỳ dòng nào
     let subjectCodeIndex = -1, creditsIndex = -1, scoreIndex = -1, letterGradeIndex = -1;
     let dataStartIndex = -1;
 
@@ -197,7 +202,6 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
       return;
     }
     
-    // Tự động xóa các hàng cũ mà không cần hỏi xác nhận
     const tbody = document.getElementById("subjects");
     while (tbody.firstChild) {
       tbody.removeChild(tbody.firstChild);
@@ -207,7 +211,6 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
     let hasAddedData = false;
     const allowedGrades = new Set(['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D']);
 
-    // Bắt đầu đọc dữ liệu từ hàng sau dòng tiêu đề
     for (let i = dataStartIndex; i < jsonData.length; i++) {
       const row = jsonData[i];
       if (row.length > 0) {
@@ -216,7 +219,6 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
         const score10 = parseFloat(row[scoreIndex]) || 0;
         const letterGrade = row[letterGradeIndex] ? row[letterGradeIndex].toString().trim().toUpperCase() : '';
 
-        // Check if the letter grade is in the allowed set
         if (allowedGrades.has(letterGrade) && subjectCode && credits > 0 && score10 >= 0 && score10 <= 10) {
           const codeToCompare = subjectCode.toUpperCase();
           if (existingSubjectCodes.has(codeToCompare)) {
@@ -232,7 +234,6 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
       }
     }
     
-    // Nếu không có dữ liệu nào được thêm, thêm lại 1 hàng trống
     if (!hasAddedData) {
         addRow();
         showModal("Không có dữ liệu hợp lệ được tìm thấy trong tệp Excel.");
@@ -257,43 +258,80 @@ function showInputPage() {
     document.getElementById("input-page").classList.remove("hidden");
 }
 
+// ===== HÀM ĐÃ CẬP NHẬT (fastCalculate) =====
 function fastCalculate() {
     const totalCredits = parseFloat(document.getElementById("fastTotalCredits").value) || 0;
     const avg10Input = document.getElementById("fastAvg10");
     const avg4Input = document.getElementById("fastAvg4");
+    const retakenCredits = parseFloat(document.getElementById("fastRetakenCredits").value) || 0;
+    const isDisciplined = document.getElementById("fastDisciplined").checked;
     
     let avg10 = parseFloat(avg10Input.value);
     let avg4 = parseFloat(avg4Input.value);
 
-    // Kiểm tra và giới hạn cho điểm gốc (thang 10)
     if (isNaN(avg10) || avg10 < 0 || avg10 > 10) {
         showModal("Trung bình gốc (thang điểm 10) phải nằm trong khoảng từ 0.00 đến 10.00.");
         return;
     }
     
-    // Kiểm tra và giới hạn cho điểm tích lũy (thang 4)
     if (isNaN(avg4) || avg4 < 0 || avg4 > 4) {
         showModal("Trung bình tích lũy (thang điểm 4) phải nằm trong khoảng từ 0.00 đến 4.00.");
         return;
     }
 
-    const rank = getRank(avg4);
+    if (totalCredits <= 0) {
+        showModal("Vui lòng nhập Tổng số ĐVHT toàn Khóa học lớn hơn 0.");
+        return;
+    }
+
+    const initialRank = getRank(avg4);
+    let finalRank = initialRank;
+    let reason = "";
+    let retakenPercentage = 0;
+
+    if (totalCredits > 0) {
+        retakenPercentage = (retakenCredits / totalCredits) * 100;
+    }
+
+    const needsDemotion = (retakenPercentage > 5) || isDisciplined;
+
+    if (needsDemotion && (initialRank === "Xuất sắc" || initialRank === "Giỏi")) {
+        if (initialRank === "Xuất sắc") {
+            finalRank = "Giỏi";
+        } else if (initialRank === "Giỏi") {
+            finalRank = "Khá";
+        }
+
+        // Xây dựng chuỗi lý do
+        if (retakenPercentage > 5 && isDisciplined) {
+            reason = `Lý do hạ bậc: Bị kỷ luật và có số TC học lại/ghép vượt quá 5% (${retakenPercentage.toFixed(2)}%).`;
+        } else if (retakenPercentage > 5) {
+            reason = `Lý do hạ bậc: Số TC học lại/ghép (${retakenCredits} TC) vượt quá 5% tổng số tín chỉ (${retakenPercentage.toFixed(2)}%).`;
+        } else if (isDisciplined) {
+            reason = "Lý do hạ bậc: Đã bị kỷ luật từ mức cảnh cáo trở lên.";
+        }
+    }
 
     document.getElementById("totalCredits").innerText = `📚 Tổng số Đơn vị Học tập (ĐVHT) toàn Khóa học: ${totalCredits || 'N/A'}`;
     document.getElementById("avg10").innerText = `📘 Trung bình Điểm gốc toàn Khóa học: ${avg10.toFixed(2)}`;
     document.getElementById("avg4").innerText = `📗 Điểm Trung bình Tích lũy toàn Khóa học: ${avg4.toFixed(2)}`;
-    document.getElementById("rank").innerText = `🏆 Xếp loại học lực đối với sinh viên năm cuối: ${rank}`;
+    document.getElementById("rank").innerText = `🏆 Xếp loại học lực đối với sinh viên năm cuối: ${finalRank}`;
+    document.getElementById("demotionReason").innerText = reason; // Hiển thị lý do
 
     document.getElementById("fast-input-page").classList.add("hidden");
     document.getElementById("result-page").classList.remove("hidden");
 }
 
-// Hàm để xóa dữ liệu trên trang xếp loại nhanh
+// ===== HÀM ĐÃ CẬP NHẬT (fastClear) =====
 function fastClear() {
     document.getElementById("fastTotalCredits").value = "";
     document.getElementById("fastAvg10").value = "";
     document.getElementById("fastAvg4").value = "";
+    document.getElementById("fastRetakenCredits").value = "";
+    document.getElementById("fastDisciplined").checked = false;
     document.getElementById("result-page").classList.add("hidden");
+    // Xóa cả lý do khi xóa form
+    document.getElementById("demotionReason").innerText = "";
 }
 
 // Hàm để xóa tất cả các hàng mà không cần xác nhận
