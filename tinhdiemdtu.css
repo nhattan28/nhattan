@@ -282,6 +282,21 @@ input[type="text"] {
   width: 100%;
 }
 
+/* ===== CSS ĐÃ THÊM ===== */
+#fast-input-page input[type="checkbox"] {
+  width: auto; /* Bỏ width 100% của input chung */
+  transform: scale(1.5); /* Làm cho checkbox lớn hơn */
+  margin-top: 10px;
+}
+
+.demotion-reason {
+  color: #e74c3c; /* Màu đỏ */
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+/* ======================== */
+
 .fast-result {
   margin-top: 15px;
   font-weight: bold;
